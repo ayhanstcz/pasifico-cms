@@ -1,0 +1,74 @@
+[
+  {
+    "key": "sushi",
+    "label": {
+      "tr": "Sushi & Rolls",
+      "en": "Sushi & Rolls",
+      "az": "Sushi və roll",
+      "ru": "Суши и роллы"
+    }
+  },
+  {
+    "key": "salads",
+    "label": {
+      "tr": "Salatalar",
+      "en": "Salads",
+      "az": "Salatlar",
+      "ru": "Салаты"
+    }
+  },
+  {
+    "key": "soups",
+    "label": {
+      "tr": "Çorbalar",
+      "en": "Soups",
+      "az": "Şorbalar",
+      "ru": "Супы"
+    }
+  },
+  {
+    "key": "starters",
+    "label": {
+      "tr": "Sıcak Başlangıçlar",
+      "en": "Hot Starters",
+      "az": "İsti başlanğıclar",
+      "ru": "Горячие закуски"
+    }
+  },
+  {
+    "key": "mains",
+    "label": {
+      "tr": "Ana Yemekler",
+      "en": "Main Courses",
+      "az": "Əsas yeməklər",
+      "ru": "Основные блюда"
+    }
+  },
+  {
+    "key": "wok",
+    "label": {
+      "tr": "Wok & Curry",
+      "en": "Wok & Curry",
+      "az": "Wok və kari",
+      "ru": "Вок и карри"
+    }
+  },
+  {
+    "key": "desserts",
+    "label": {
+      "tr": "Tatlılar",
+      "en": "Desserts",
+      "az": "Desertlər",
+      "ru": "Десерты"
+    }
+  },
+  {
+    "key": "sides",
+    "label": {
+      "tr": "Garnitürler",
+      "en": "Sides",
+      "az": "Qarnir",
+      "ru": "Гарниры"
+    }
+  }
+]

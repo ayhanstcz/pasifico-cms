@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pasifico Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d0d0d;--surface:#1a1a1a;--surface-2:#222;--border:#2a2a2a;--text:#e5e5e5;--muted:#888;--gold:#b8860b;--gold-hover:#d4a017;--danger:#ff4444;--success:#22c55e;--radius:8px;--font:-apple-system,system-ui,sans-serif}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--gold);text-decoration:none}
+
+/* Header */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header h1{font-size:1.1rem;font-weight:600;letter-spacing:-.02em}
+.header h1 span{color:var(--gold)}
+.header .meta{display:flex;align-items:center;gap:16px}
+.header .meta small{color:var(--muted);font-size:.75rem}
+.header .logout{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:var(--radius);color:var(--muted);cursor:pointer;font-size:.8rem}
+.header .logout:hover{color:var(--text);border-color:var(--muted)}
+
+/* Layout */
+.layout{display:flex;flex:1}
+.sidebar{width:240px;background:var(--surface);border-right:1px solid var(--border);padding:12px 0;flex-shrink:0;overflow-y:auto}
+.sidebar a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--muted);font-size:.85rem;transition:all .15s;border-left:2px solid transparent}
+.sidebar a:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.sidebar a.active{color:var(--text);background:rgba(184,134,11,.08);border-left-color:var(--gold)}
+.sidebar a .icon{width:18px;text-align:center}
+.main{flex:1;padding:32px;overflow-y:auto;max-width:1200px}
+
+/* Breadcrumb */
+.breadcrumb{font-size:.8rem;color:var(--muted);margin-bottom:20px}
+.breadcrumb span{color:var(--text)}
+
+/* Section heading */
+.section{display:none}
+.section.active{display:block}
+.section h2{font-size:1.6rem;font-weight:600;margin-bottom:4px;letter-spacing:-.02em}
+.section p{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.card h3{font-size:1rem;font-weight:500;margin-bottom:16px;color:var(--gold)}
+.card .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.card .row.third{grid-template-columns:1fr 1fr 1fr}
+.card .row.single{grid-template-columns:1fr}
+.card label{display:block;font-size:.7rem;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.card input,.card textarea,.card select{width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85rem;outline:none;transition:border-color .15s}
+.card textarea{resize:vertical;min-height:60px;font-family:var(--font)}
+.card input:focus,.card textarea:focus,.card select:focus{border-color:var(--gold)}
+
+/* Buttons */
+.btn{padding:10px 20px;border:0;border-radius:var(--radius);font-size:.85rem;cursor:pointer;transition:all .15s;font-weight:500}
+.btn-primary{background:var(--gold);color:#0d0d0d}
+.btn-primary:hover{background:var(--gold-hover)}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:#333}
+.btn-danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+.btn-danger:hover{background:rgba(255,68,68,.1)}
+.btn-sm{padding:6px 12px;font-size:.75rem}
+.mt-12{margin-top:12px}
+.mt-24{margin-top:24px}
+.mb-12{margin-bottom:12px}
+.flex{display:flex;gap:8px;align-items:center}
+.flex-between{display:flex;justify-content:space-between;align-items:center}
+
+/* Menu items list */
+.item-list{display:grid;gap:12px}
+.item-card{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;gap:16px;align-items:start}
+.item-card .thumb{width:72px;height:54px;border-radius:6px;object-fit:cover;background:#333;flex-shrink:0}
+.item-card .info{flex:1;min-width:0}
+.item-card .info h4{font-size:.9rem;font-weight:500;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-card .info small{color:var(--muted);font-size:.75rem}
+.item-card .info .price{color:var(--gold)}
+.item-card .actions{display:flex;gap:6px;flex-shrink:0}
+
+/* Modal (inline) */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:90vw;max-width:800px;max-height:90vh;overflow-y:auto;padding:32px}
+.modal h3{font-size:1.2rem;margin-bottom:20px}
+
+/* Status toast */
+.toast{position:fixed;bottom:24px;right:24px;padding:14px 22px;border-radius:10px;font-size:.85rem;z-index:300;display:none;animation:slideUp .25s ease}
+.toast.success{background:var(--success);color:#0d0d0d;display:block}
+.toast.error{background:var(--danger);color:#fff;display:block}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* Search */
+.search-box{width:100%;padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.9rem;margin-bottom:16px;outline:none}
+.search-box:focus{border-color:var(--gold)}
+
+/* Tags */
+.lang-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.65rem;font-weight:600;margin-right:4px}
+.lang-tag.en{background:#1e3a5f;color:#7dd3fc}
+.lang-tag.tr{background:#3b1e1e;color:#fca5a5}
+.lang-tag.az{background:#1e3b2e;color:#86efac}
+.lang-tag.ru{background:#3b2e1e;color:#fcd34d}
+
+/* I18n editor special */
+.i18n-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.i18n-grid .i18n-field{position:relative}
+.i18n-grid .i18n-field label{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
+.i18n-grid .i18n-field input,.i18n-grid .i18n-field textarea{width:100%;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem;outline:none}
+.i18n-grid .i18n-field input:focus,.i18n-grid .i18n-field textarea:focus{border-color:var(--gold)}
+.i18n-grid .i18n-field textarea{min-height:50px;resize:vertical;font-family:var(--font)}
+
+/* Image upload area */
+.img-upload{position:relative;width:160px;height:120px;border:2px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;background:var(--surface-2)}
+.img-upload img{width:100%;height:100%;object-fit:cover}
+.img-upload .placeholder{color:var(--muted);font-size:.75rem;text-align:center}
+.img-upload input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* Tab system */
+.tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--border)}
+.tab{padding:12px 20px;font-size:.82rem;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;background:none;border-left:0;border-right:0;border-top:0}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-card .num{font-size:2rem;font-weight:700;color:var(--gold)}
+.stat-card .label{font-size:.75rem;color:var(--muted);margin-top:4px}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{padding:16px}
+  .card .row,.card .row.third{grid-template-columns:1fr}
+  .i18n-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .item-card{flex-wrap:wrap}
+  .modal{width:95vw;padding:20px}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Pasifico <span>CMS</span></h1>
+  <div class="meta">
+    <small id="liveStatus">● Ready</small>
+    <button class="logout" onclick="logout()">Sign out</button>
+  </div>
+</div>
+<div class="layout">
+  <nav class="sidebar" id="sidebar"></nav>
+  <div class="main" id="main"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== STATE ====================
+const state = { currentView: '' };
+
+// ==================== TOAST ====================
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.className = 'toast', 2500);
+}
+
+// ==================== AUTH ====================
+async function logout() {
+  await fetch('/api/logout', { method: 'POST' });
+  window.location.href = '/admin/login';
+}
+
+// ==================== API ====================
+function api(path, opts = {}) {
+  return fetch(path, {
+    headers: { 'Content-Type': 'application/json', ...opts.headers },
+    ...opts
+  }).then(r => {
+    if (r.status === 401) { window.location.href = '/admin/login'; throw new Error('Auth failed'); }
+    if (!r.ok) return r.json().then(e => { throw new Error(e.error || 'API error') });
+    return r.json();
+  });
+}
+
+function loadData(name) {
+  return api(`/api/data/${name}`);
+}
+
+function saveData(name, data) {
+  return api(`/api/admin/data/${name}`, {
+    method: 'PUT',
+    body: JSON.stringify(data)
+  });
+}
+
+// ==================== SIDEBAR ====================
+const PAGES = [
+  { id: 'dashboard', icon: '📊', label: 'Dashboard' },
+  { id: 'menu', icon: '🍣', label: 'Menu Items' },
+  { id: 'categories', icon: '📂', label: 'Categories' },
+  { id: 'featured', icon: '⭐', label: 'Featured Plates' },
+  { id: 'events', icon: '🎭', label: 'Events' },
+  { id: 'i18n', icon: '🌐', label: 'Translations' },
+  { id: 'site', icon: '⚙️', label: 'Site Config' },
+  { id: 'images', icon: '🖼️', label: 'Images' }
+];
+
+function buildSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = PAGES.map(p =>
+    `<a href="#" class="${p.id === state.currentView ? 'active' : ''}" onclick="navigate('${p.id}')">
+      <span class="icon">${p.icon}</span> ${p.label}
+    </a>`
+  ).join('');
+}
+
+// ==================== NAVIGATION ====================
+function navigate(page) {
+  state.currentView = page;
+  buildSidebar();
+  renderers[page]();
+  window.scrollTo(0, 0);
+}
+
+// ==================== RENDERERS ====================
+const renderers = {};
+
+// ─── DASHBOARD ───
+renderers.dashboard = async function() {
+  const main = document.getElementById('main');
+  const menu = await loadData('menu');
+  const i18n = await loadData('i18n');
+  const cats = await loadData('categories');
+  const events = await loadData('events');
+
+  const totalItems = Object.values(menu).flat().length;
+  const catCount = cats.length;
+  const langCount = Object.keys(i18n).length;
+  const eventCount = events.length;
+
+  main.innerHTML = `
+    <div class="breadcrumb">Dashboard</div>
+    <div class="stats">
+      <div class="stat-card"><div class="num">${totalItems}</div><div class="label">Menu Items</div></div>
+      <div class="stat-card"><div class="num">${catCount}</div><div class="label">Categories</div></div>
+      <div class="stat-card"><div class="num">${langCount}</div><div class="label">Languages</div></div>
+      <div class="stat-card"><div class="num">${eventCount}</div><div class="label">Events</div></div>
+    </div>
+    <div class="card">
+      <h3>Welcome to Pasifico CMS</h3>
+      <p style="color:var(--muted);line-height:1.6">Edit your website content in real-time. All changes are saved as JSON files and served live. No database needed.</p>
+      <div style="margin-top:16px;color:var(--muted);font-size:.82rem">
+        <div>• Click any section in the sidebar to start editing</div>
+        <div>• Changes are instant — hit "Save" and the live site updates</div>
+        <div>• All 4 languages (TR/EN/AZ/RU) are managed per-field</div>
+        <div>• Image uploads go to the /images folder automatically</div>
+      </div>
+    </div>
+  `;
+};
+
+// ─── MENU ───
+renderers.menu = async function() {
+  const main = document.getElementById('main');
+  const menuData = await loadData('menu');
+  const cats = await loadData('categories');
+  const langNames = { en: 'English', tr: 'Türkçe', az: 'Azərbaycanca', ru: 'Русский' };
+
+  const catTabs = cats.map(c => `<button class="tab ${c.key === 'sushi' ? 'active' : ''}" onclick="switchCat('${c.key}')" data-cat="${c.key}">${c.label.en}</button>`).join('');
+
+  let itemsHtml = '';
+  for (const [catKey, items] of Object.entries(menuData)) {
+    const cat = cats.find(c => c.key === catKey);
+    itemsHtml += items.map((item, i) => `
+      <div class="item-card" data-cat="${catKey}" ${catKey !== 'sushi' ? 'style="display:none"' : ''}>
+        <img class="thumb" src="${item.img || ''}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2272%22 height=%2254%22><rect fill=%22%23333%22 width=%2272%22 height=%2254%22/></svg>'">
+        <div class="info">
+          <h4>${item.name.en}</h4>
+          <small>${cat ? cat.label.en : catKey}</small>
+          <div style="margin-top:4px">
+            <span class="price">${item.price} ₼</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary btn-sm" onclick="editMenuItem('${catKey}',${i})">Edit</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  main.innerHTML = `
+    <div class="breadcrumb">Menu Items</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div>
+        <h2>Menu Editor</h2>
+        <p>Edit menu items with full multilingual support</p>
+      </div>
+    </div>
+    <input class="search-box" placeholder="Search menu items..." oninput="searchMenu(this.value)">
+    <div class="tabs" id="menuTabs">${catTabs}</div>
+    <div class="item-list" id="menuList">${itemsHtml}</div>
+  `;
+  state.menuData = menuData;
+};
+
+window.switchCat = function(key) {
+  document.querySelectorAll('#menuTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.cat === key));
+  document.querySelectorAll('.item-card').forEach(c => c.style.display = c.dataset.cat === key ? '' : 'none');
+};
+
+window.searchMenu = function(q) {
+  const lower = q.toLowerCase();
+  document.querySelectorAll('.item-card').forEach(c => {
+    const name = c.querySelector('h4')?.textContent?.toLowerCase() || '';
+    c.style.display = name.includes(lower) ? '' : 'none';
+  });
+};
+
+window.editMenuItem = async function(catKey, idx) {
+  const menuData = state.menuData || await loadData('menu');
+  const item = menuData[catKey][idx];
+  window._editMenuContext = { catKey, idx, original: JSON.parse(JSON.stringify(item)) };
+
+  const langs = ['en', 'tr', 'az', 'ru'];
+  const langLabels = { en: 'EN', tr: 'TR', az: 'AZ', ru: 'RU' };
+
+  const nameFields = langs.map(l => `
+    <div class="i18n-field">
+      <label><span class="lang-tag ${l}">${langLabels[l]}</span> Name</label>
+      <input id="mn_${l}" value="${escapeHtml(item.name[l] || '')}" placeholder="${l}" data-lang="${l}">
+    </div>
+  `).join('');
+
+  const descFields = langs.map(l => `
+    <div class="i18n-field">
+      <label><span class="lang-tag ${l}">${langLabels[l]}</span> Description</label>
+      <textarea id="md_${l}" data-lang="${l}">${escapeHtml(item.desc ? (item.desc[l] || '') : '')}</textarea>
+    </div>
+  `).join('');
+
+  const modal = document.getElementById('modal');
+  modal.innerHTML = `
+    <div class="modal" style="max-width:900px">
+      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px">
+        <h3>Edit Menu Item</h3>
+        <button class="btn btn-secondary btn-sm" onclick="closeModal()">✕</button>
+      </div>
+      <div class="card">
+        <h3>Names (4 languages)</h3>
+        <div class="i18n-grid">${nameFields}</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;gap:20px;align-items:end">
+          <div style="flex:1">
+            <label>Price (₼)</label>
+            <input id="mprice" value="${escapeHtml(item.price || '')}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+          </div>
+          <div style="flex-shrink:0">
+            <label>Image URL</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="mimg" value="${escapeHtml(item.img || '')}" style="width:300px;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('mimgUpload').click()">Browse</button>
+              <input type="file" id="mimgUpload" accept="image/*" style="display:none" onchange="uploadItemImage(this)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Descriptions</h3>
+        <div class="i18n-grid">${descFields}</div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveMenuItem()">Save Changes</button>
+      </div>
+    </div>
+  `;
+  modal.classList.add('open');
+};
+
+window.saveMenuItem = async function() {
+  const ctx = window._editMenuContext;
+  if (!ctx) return;
+  const menuData = state.menuData || await loadData('menu');
+  const item = menuData[ctx.catKey][ctx.idx];
+
+  item.name = {};
+  item.desc = {};
+  ['en','tr','az','ru'].forEach(l => {
+    const nameEl = document.getElementById(`mn_${l}`);
+    const descEl = document.getElementById(`md_${l}`);
+    if (nameEl) item.name[l] = nameEl.value;
+    if (descEl) item.desc[l] = descEl.value;
+  });
+  item.price = document.getElementById('mprice').value;
+  const img = document.getElementById('mimg').value;
+  if (img) item.img = img;
+
+  await saveData('menu', menuData);
+  state.menuData = menuData;
+  closeModal();
+  toast('Menu item updated!');
+  renderers.menu();
+};
+
+window.uploadItemImage = async function(input) {
+  if (!input.files[0]) return;
+  const fd = new FormData();
+  fd.append('image', input.files[0]);
+  const res = await fetch('/api/upload', { method: 'POST', body: fd });
+  const data = await res.json();
+  if (data.url) document.getElementById('mimg').value = data.url;
+  toast('Image uploaded!');
+};
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+window.closeModal = function() {
+  document.getElementById('modal').classList.remove('open');
+};
+
+// ─── CATEGORIES ───
+renderers.categories = async function() {
+  const main = document.getElementById('main');
+  const cats = await loadData('categories');
+  const langs = ['en', 'tr', 'az', 'ru'];
+  const langLabels = { en: 'EN', tr: 'TR', az: 'AZ', ru: 'RU' };
+
+  let rows = cats.map((cat, i) => `
+    <div class="item-card">
+      <div class="info" style="flex:3">
+        <h4>${cat.label.en}</h4>
+        ${langs.map(l => `
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+            <span class="lang-tag ${l}">${langLabels[l]}</span>
+            <input class="cat-input" data-idx="${i}" data-lang="${l}" value="${escapeHtml(cat.label[l] || '')}" style="flex:1;padding:6px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem">
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  main.innerHTML = `
+    <div class="breadcrumb">Categories</div>
+    <h2>Menu Categories</h2>
+    <p>Edit category names in all languages</p>
+    <div class="item-list" style="margin-top:20px">${rows}</div>
+    <button class="btn btn-primary mt-24" onclick="saveCategories()">Save All Categories</button>
+  `;
+};
+
+window.saveCategories = async function() {
+  const cats = await loadData('categories');
+  document.querySelectorAll('.cat-input').forEach(el => {
+    const idx = parseInt(el.dataset.idx);
+    const lang = el.dataset.lang;
+    if (cats[idx]) cats[idx].label[lang] = el.value;
+  });
+  await saveData('categories', cats);
+  toast('Categories saved!');
+};
+
+// ─── FEATURED ───
+renderers.featured = async function() {
+  const main = document.getElementById('main');
+  const featured = await loadData('featured');
+  const langs = ['en', 'tr', 'az', 'ru'];
+  const langLabels = { en: 'EN', tr: 'TR', az: 'AZ', ru: 'RU' };
+
+  let html = `<div class="breadcrumb">Featured Plates</div><h2>Three Signature Plates</h2><p>Edit the featured plates shown on the homepage</p>`;
+
+  for (const [key, plate] of Object.entries(featured)) {
+    const nameFields = langs.map(l => `
+      <div class="i18n-field">
+        <label><span class="lang-tag ${l}">${langLabels[l]}</span> Name</label>
+        <input id="fp_${key}_name_${l}" value="${escapeHtml(plate.name[l] || '')}" style="width:100%;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+      </div>
+    `).join('');
+
+    const descFields = langs.map(l => `
+      <div class="i18n-field">
+        <label><span class="lang-tag ${l}">${langLabels[l]}</span> Description</label>
+        <textarea id="fp_${key}_desc_${l}" style="width:100%;min-height:50px;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text);resize:vertical;font-family:var(--font)">${escapeHtml(plate.desc[l] || '')}</textarea>
+      </div>
+    `).join('');
+
+    html += `
+      <div class="card" data-key="${key}">
+        <div class="flex-between">
+          <h3>${key}</h3>
+          <span class="price">${plate.price} ₼</span>
+        </div>
+        <div class="row">
+          <div>
+            <label>Price (₼)</label>
+            <input id="fp_${key}_price" value="${escapeHtml(plate.price || '')}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+          </div>
+          <div>
+            <label>Image URL</label>
+            <div style="display:flex;gap:8px">
+              <input id="fp_${key}_img" value="${escapeHtml(plate.img || '')}" style="flex:1;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+            </div>
+          </div>
+        </div>
+        <h4 style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Names</h4>
+        <div class="i18n-grid">${nameFields}</div>
+        <h4 style="font-size:.85rem;color:var(--muted);margin-bottom:8px;margin-top:12px">Descriptions</h4>
+        <div class="i18n-grid">${descFields}</div>
+      </div>
+    `;
+  }
+
+  html += `<button class="btn btn-primary mt-12" onclick="saveFeatured()">Save Featured Plates</button>`;
+  main.innerHTML = html;
+};
+
+window.saveFeatured = async function() {
+  const featured = await loadData('featured');
+  for (const key of Object.keys(featured)) {
+    const plate = featured[key];
+    plate.price = document.getElementById(`fp_${key}_price`).value;
+    plate.img = document.getElementById(`fp_${key}_img`).value;
+    plate.name = {};
+    plate.desc = {};
+    ['en','tr','az','ru'].forEach(l => {
+      plate.name[l] = document.getElementById(`fp_${key}_name_${l}`).value;
+      plate.desc[l] = document.getElementById(`fp_${key}_desc_${l}`).value;
+    });
+  }
+  await saveData('featured', featured);
+  toast('Featured plates saved!');
+};
+
+// ─── EVENTS ───
+renderers.events = async function() {
+  const main = document.getElementById('main');
+  const events = await loadData('events');
+  const langs = ['en', 'tr', 'az', 'ru'];
+  const langLabels = { en: 'EN', tr: 'TR', az: 'AZ', ru: 'RU' };
+
+  let html = `<div class="breadcrumb">Events</div><h2>Events</h2><p>Edit upcoming events</p>`;
+
+  events.forEach((ev, idx) => {
+    const titleFields = langs.map(l => `
+      <div class="i18n-field">
+        <label><span class="lang-tag ${l}">${langLabels[l]}</span> Title</label>
+        <input id="ev_${idx}_title_${l}" value="${escapeHtml(ev.title[l] || '')}" style="width:100%;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+      </div>
+    `).join('');
+
+    const descFields = langs.map(l => `
+      <div class="i18n-field">
+        <label><span class="lang-tag ${l}">${langLabels[l]}</span> Description</label>
+        <textarea id="ev_${idx}_desc_${l}" style="width:100%;min-height:50px;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text);resize:vertical;font-family:var(--font)">${escapeHtml(ev.desc[l] || '')}</textarea>
+      </div>
+    `).join('');
+
+    const metaFields = langs.map(l => `
+      <div class="i18n-field">
+        <label><span class="lang-tag ${l}">${langLabels[l]}</span> Meta</label>
+        <input id="ev_${idx}_meta_${l}" value="${escapeHtml(ev.meta[l] || '')}" style="width:100%;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+      </div>
+    `).join('');
+
+    html += `
+      <div class="card">
+        <h3>${ev.title.en}</h3>
+        <div class="row third">
+          <div>
+            <label>Day</label>
+            <input id="ev_${idx}_day" value="${ev.day}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+          </div>
+          <div>
+            <label>Month Key (e.g. month.jul)</label>
+            <input id="ev_${idx}_month" value="${ev.monthKey}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+          </div>
+          <div>
+            <label>Image URL</label>
+            <input id="ev_${idx}_img" value="${ev.img}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+          </div>
+        </div>
+        <h4 style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Titles</h4>
+        <div class="i18n-grid">${titleFields}</div>
+        <h4 style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Descriptions</h4>
+        <div class="i18n-grid">${descFields}</div>
+        <h4 style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Meta (time, capacity)</h4>
+        <div class="i18n-grid">${metaFields}</div>
+      </div>
+    `;
+  });
+
+  html += `<button class="btn btn-primary mt-12" onclick="saveEvents()">Save All Events</button>`;
+  main.innerHTML = html;
+};
+
+window.saveEvents = async function() {
+  const events = await loadData('events');
+  events.forEach((ev, idx) => {
+    ev.day = parseInt(document.getElementById(`ev_${idx}_day`).value) || ev.day;
+    ev.monthKey = document.getElementById(`ev_${idx}_month`).value || ev.monthKey;
+    ev.img = document.getElementById(`ev_${idx}_img`).value || ev.img;
+    ev.title = {}; ev.desc = {}; ev.meta = {};
+    ['en','tr','az','ru'].forEach(l => {
+      ev.title[l] = document.getElementById(`ev_${idx}_title_${l}`).value;
+      ev.desc[l] = document.getElementById(`ev_${idx}_desc_${l}`).value;
+      ev.meta[l] = document.getElementById(`ev_${idx}_meta_${l}`).value;
+    });
+  });
+  await saveData('events', events);
+  toast('Events saved!');
+};
+
+// ─── I18N TRANSLATIONS ───
+renderers.i18n = async function() {
+  const main = document.getElementById('main');
+  const i18n = await loadData('i18n');
+  const langs = ['en', 'tr', 'az', 'ru'];
+  const langLabels = { en: 'EN', tr: 'TR', az: 'AZ', ru: 'RU' };
+
+  // Collect all keys
+  const keys = new Set();
+  langs.forEach(l => { if (i18n[l]) Object.keys(i18n[l]).forEach(k => keys.add(k)) });
+  const sortedKeys = [...keys].sort();
+
+  // Group by prefix
+  const groups = {};
+  sortedKeys.forEach(k => {
+    const prefix = k.includes('.') ? k.split('.')[0] : 'general';
+    if (!groups[prefix]) groups[prefix] = [];
+    groups[prefix].push(k);
+  });
+
+  let html = `<div class="breadcrumb">Translations</div><h2>Content Translations</h2><p>Edit all text content across 4 languages</p>
+    <input class="search-box" placeholder="Search translation keys..." oninput="searchI18n(this.value)">`;
+
+  for (const [group, groupKeys] of Object.entries(groups)) {
+    html += `<div class="card i18n-group"><h3>${group}</h3>`;
+    for (const key of groupKeys) {
+      const fields = langs.map(l => `
+        <div class="i18n-field">
+          <label><span class="lang-tag ${l}">${langLabels[l]}</span></label>
+          <input class="i18n-input" data-key="${key}" data-lang="${l}" value="${escapeHtml(i18n[l]?.[key] ?? '')}" style="width:100%;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+        </div>
+      `).join('');
+      html += `
+        <div class="i18n-entry" data-key="${key}">
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px;font-family:monospace">${key}</div>
+          <div class="i18n-grid">${fields}</div>
+        </div>
+      `;
+    }
+    html += `</div>`;
+  }
+
+  html += `<button class="btn btn-primary mt-12" onclick="saveI18n()">Save All Translations</button>`;
+  main.innerHTML = html;
+};
+
+window.searchI18n = function(q) {
+  const lower = q.toLowerCase();
+  document.querySelectorAll('.i18n-entry').forEach(el => {
+    const key = el.dataset.key.toLowerCase();
+    const values = [...el.querySelectorAll('input')].map(i => i.value.toLowerCase()).join(' ');
+    el.style.display = (key.includes(lower) || values.includes(lower)) ? '' : 'none';
+  });
+};
+
+window.saveI18n = async function() {
+  const i18n = await loadData('i18n');
+  const langs = ['en', 'tr', 'az', 'ru'];
+
+  document.querySelectorAll('.i18n-input').forEach(el => {
+    const key = el.dataset.key;
+    const lang = el.dataset.lang;
+    if (i18n[lang]) i18n[lang][key] = el.value;
+  });
+
+  await saveData('i18n', i18n);
+  toast('Translations saved!');
+};
+
+// ─── SITE CONFIG ───
+renderers.site = async function() {
+  const main = document.getElementById('main');
+  const site = await loadData('site');
+  const langs = ['en', 'tr', 'az', 'ru'];
+  const langLabels = { en: 'EN', tr: 'TR', az: 'AZ', ru: 'RU' };
+
+  const addrFields = langs.map(l => `
+    <div class="i18n-field">
+      <label><span class="lang-tag ${l}">${langLabels[l]}</span> Address</label>
+      <input id="site_addr_${l}" value="${escapeHtml(site.address[l] || '')}" style="width:100%;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+    </div>
+  `).join('');
+
+  const hoursFields = langs.map(l => `
+    <div class="i18n-field">
+      <label><span class="lang-tag ${l}">${langLabels[l]}</span> Hours</label>
+      <textarea id="site_hours_${l}" style="width:100%;min-height:50px;padding:9px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font)">${escapeHtml(site.hours[l] || '')}</textarea>
+    </div>
+  `).join('');
+
+  main.innerHTML = `
+    <div class="breadcrumb">Site Config</div>
+    <h2>Site Configuration</h2>
+    <p>Contact info, social links, and hero video</p>
+
+    <div class="card">
+      <h3>Contact Details</h3>
+      <div class="row">
+        <div>
+          <label>Phone</label>
+          <input id="site_phone" value="${escapeHtml(site.phone || '')}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+        </div>
+        <div>
+          <label>Email</label>
+          <input id="site_email" value="${escapeHtml(site.email || '')}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Address</h3>
+      <div class="i18n-grid">${addrFields}</div>
+    </div>
+
+    <div class="card">
+      <h3>Hours</h3>
+      <div class="i18n-grid">${hoursFields}</div>
+    </div>
+
+    <div class="card">
+      <h3>Social Links</h3>
+      ${['instagram','facebook','youtube','whatsapp','tripadvisor'].map(s => `
+        <div style="margin-bottom:12px">
+          <label>${s}</label>
+          <input id="social_${s}" value="${escapeHtml(site.social[s] || '')}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <h3>Hero Video URL</h3>
+      <input id="site_video" value="${escapeHtml(site.heroVideo || '')}" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text)">
+    </div>
+
+    <button class="btn btn-primary mt-12" onclick="saveSiteConfig()">Save Site Config</button>
+  `;
+};
+
+window.saveSiteConfig = async function() {
+  const site = await loadData('site');
+  site.phone = document.getElementById('site_phone').value;
+  site.email = document.getElementById('site_email').value;
+  site.address = {}; site.hours = {};
+  ['en','tr','az','ru'].forEach(l => {
+    site.address[l] = document.getElementById(`site_addr_${l}`).value;
+    site.hours[l] = document.getElementById(`site_hours_${l}`).value;
+  });
+  ['instagram','facebook','youtube','whatsapp','tripadvisor'].forEach(s => {
+    site.social[s] = document.getElementById(`social_${s}`).value;
+  });
+  site.heroVideo = document.getElementById('site_video').value;
+  await saveData('site', site);
+  toast('Site config saved!');
+};
+
+// ─── IMAGES ───
+renderers.images = async function() {
+  const main = document.getElementById('main');
+
+  main.innerHTML = `
+    <div class="breadcrumb">Images</div>
+    <h2>Image Manager</h2>
+    <p>Upload new images or manage existing ones</p>
+
+    <div class="card">
+      <h3>Upload Image</h3>
+      <div style="display:flex;gap:16px;align-items:center">
+        <div style="flex:1">
+          <input type="file" id="bulkUpload" accept="image/*" multiple style="padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text);width:100%">
+        </div>
+        <button class="btn btn-primary" onclick="uploadImages()">Upload</button>
+      </div>
+      <div id="uploadStatus" style="margin-top:12px;font-size:.82rem;color:var(--muted)"></div>
+    </div>
+
+    <div class="card" id="imageGridContainer">
+      <h3>Existing Images</h3>
+      <div id="imageGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px"></div>
+    </div>
+  `;
+
+  // List existing images
+  try {
+    const res = await fetch('/api/images/list');
+    const data = await res.json();
+    const grid = document.getElementById('imageGrid');
+    if (data.images && data.images.length) {
+      grid.innerHTML = data.images.map(img => `
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface-2)">
+          <img src="/images/${img}" style="width:100%;height:120px;object-fit:cover;display:block">
+          <div style="padding:8px">
+            <div style="font-size:.65rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${img}</div>
+            <button class="btn btn-danger btn-sm" style="margin-top:6px;width:100%" onclick="copyImagePath('${img}')">Copy URL</button>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1">No images uploaded yet.</p>';
+    }
+  } catch(e) {
+    console.error('Failed to list images');
+  }
+};
+
+window.uploadImages = async function() {
+  const input = document.getElementById('bulkUpload');
+  if (!input.files.length) return toast('Select files first', 'error');
+  const status = document.getElementById('uploadStatus');
+  let count = 0;
+
+  for (const file of input.files) {
+    const fd = new FormData();
+    fd.append('image', file);
+    try {
+      await fetch('/api/upload', { method: 'POST', body: fd });
+      count++;
+    } catch(e) { console.error('Upload failed:', file.name); }
+  }
+
+  status.textContent = `${count} images uploaded. Refreshing...`;
+  toast(`${count} images uploaded!`);
+  setTimeout(() => renderers.images(), 1000);
+};
+
+window.copyImagePath = function(name) {
+  navigator.clipboard.writeText('/images/' + name);
+  toast('Copied: /images/' + name);
+};
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  // Add modal overlay
+  const modal = document.createElement('div');
+  modal.id = 'modal';
+  modal.className = 'modal-overlay';
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.body.appendChild(modal);
+
+  navigate('dashboard');
+});
+</script>
+</body>
+</html>

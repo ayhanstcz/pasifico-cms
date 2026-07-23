@@ -1,0 +1,74 @@
+[
+  {
+    "id": "vinyl",
+    "day": 24,
+    "monthKey": "month.jul",
+    "title": {
+      "en": "Vinyl After Dark",
+      "tr": "Vinyl After Dark",
+      "az": "Vinyl After Dark",
+      "ru": "Vinyl After Dark"
+    },
+    "desc": {
+      "en": "Analog sound, low light, late menu. Selection by Ece Donmez.",
+      "tr": "Analog ses, düşük ışık, gece menüsü. Seçki: Ece Dönmez.",
+      "az": "Analog səs, zəif işıq, gecə menyusu. Seçimi: Ece Dönmez.",
+      "ru": "Аналоговый звук, приглушенный свет, ночное меню. Селекция: Ece Donmez."
+    },
+    "meta": {
+      "en": "21:30 · Capacity 80",
+      "tr": "21:30 · Kontenjan 80",
+      "az": "21:30 · 80 nəfərlik yer",
+      "ru": "21:30 · Вместимость 80"
+    },
+    "img": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1400&q=84"
+  },
+  {
+    "id": "origin",
+    "day": 2,
+    "monthKey": "month.aug",
+    "title": {
+      "en": "Origin Table",
+      "tr": "Origin Table",
+      "az": "Origin Table",
+      "ru": "Origin Table"
+    },
+    "desc": {
+      "en": "Guided tasting table with beans from Ethiopia, Colombia and Guatemala.",
+      "tr": "Etiyopya, Kolombiya ve Guatemala çekirdekleriyle yönlendirmeli tadım masası.",
+      "az": "Efiopiya, Kolumbiya və Qvatemala dənələri ilə yönləndirilən dadım masası.",
+      "ru": "Дегустационный стол с зернами из Эфиопии, Колумбии и Гватемалы."
+    },
+    "meta": {
+      "en": "18:00 · 18 Guests",
+      "tr": "18:00 · 18 Kişi",
+      "az": "18:00 · 18 qonaq",
+      "ru": "18:00 · 18 гостей"
+    },
+    "img": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=84"
+  },
+  {
+    "id": "guest",
+    "day": 15,
+    "monthKey": "month.aug",
+    "title": {
+      "en": "Guest Kitchen No. 07",
+      "tr": "Guest Kitchen No. 07",
+      "az": "Guest Kitchen No. 07",
+      "ru": "Guest Kitchen No. 07"
+    },
+    "desc": {
+      "en": "Six courses with fire, fermentation and coffee pairing by Chef Serra Ulu.",
+      "tr": "Şef Serra Ulu ile ateş, fermantasyon ve kahve eşleşmeli altı tabak.",
+      "az": "Şef Serra Ulu ilə alov, fermentasiya və qəhvə uyğunluğu ilə altı təqdimat.",
+      "ru": "Шесть подач с огнем, ферментацией и кофейным pairing от шефа Serra Ulu."
+    },
+    "meta": {
+      "en": "20:00 · By reservation",
+      "tr": "20:00 · Rezervasyonlu",
+      "az": "20:00 · Rezervasiya ilə",
+      "ru": "20:00 · По брони"
+    },
+    "img": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=84"
+  }
+]
