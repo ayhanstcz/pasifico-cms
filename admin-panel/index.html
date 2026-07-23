@@ -73,14 +73,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--g)}
 .item .info .price{color:var(--g)}
 .item .actions{flex-shrink:0}
 
-/* Image gallery */
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-.gallery-item{border:1px solid var(--b);border-radius:8px;overflow:hidden;background:var(--s2)}
-.gallery-item .thumb{height:120px;display:flex;align-items:center;justify-content:center;background:#0a0a0a;overflow:hidden}
-.gallery-item .thumb img{max-width:100%;max-height:100%;object-fit:cover}
-.gallery-item .meta{padding:8px}
-.gallery-item .meta .name{font-size:.62rem;color:var(--m);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
 /* Toast */
 .toast{position:fixed;bottom:20px;right:20px;padding:12px 20px;background:var(--g);color:#0e0e0e;border-radius:8px;font-size:.82rem;z-index:999;display:none;animation:slideUp .2s ease}
 .toast.err{background:#f44;color:#fff}
@@ -197,8 +189,7 @@ const TABS = [
   {id:'featured',label:'⭐ Featured'},
   {id:'events',label:'🎭 Events'},
   {id:'texts',label:'📝 Texts'},
-  {id:'site',label:'⚙️ Site'},
-  {id:'images',label:'🖼️ Images'}
+  {id:'site',label:'⚙️ Site'}
 ];
 
 function switchTab(id){
@@ -377,10 +368,29 @@ window.uploadForField = async function(fieldId, input){
   toast('Image uploaded!');
 };
 
-window.pickImage = function(fieldId){
-  renderers.images(true, fieldId);
-};
 
+window.pickImage = async function(fieldId){
+  try {
+    const r = await fetch('/api/images/list');
+    const d = await r.json();
+    if(!d.images || !d.images.length) return toast('No images', true);
+    let html = '<h3>Select Image</h3><div style="max-height:60vh;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;padding:4px">';
+    d.images.forEach(img => {
+      html += '<div style="cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid transparent" onclick="pickImg(\'' + fieldId + '\',\'/images/' + img + '\',this)">';
+      html += '<img src="/images/' + img + '" style="width:100%;height:70px;object-fit:cover;display:block">';
+      html += '<div style="font-size:.5rem;color:#777;padding:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + img.split('/').pop() + '</div></div>';
+    });
+    html += '</div><div class="gap-8 mt-16"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button></div>';
+    openModal(html);
+  } catch(e) { toast('Failed', true); }
+};
+window.pickImg = function(fieldId, url, el) {
+  document.querySelectorAll('.modal-box > div > div').forEach(e => e.style.borderColor='transparent');
+  el.style.borderColor = '#b8860b';
+  document.getElementById(fieldId).value = url;
+  const prev = document.getElementById('imgPreview');
+  if(prev) prev.src = url;
+};
 // ─── FEATURED ───
 renderers.featured = async function(){
   const fp = await loadData('featured');
@@ -591,25 +601,6 @@ window.saveSite = async function(){
   toast('Site config saved!');
 };
 
-// ─── IMAGES ───
-renderers.images = async function(pickMode=false, fieldId=''){
-  if(!pickMode){
-    $('content').innerHTML = `
-      <div class="card">
-        <h3>Upload Image</h3>
-        <div class="flex">
-          <input type="file" id="uploadFile" accept="image/*" style="flex:1;padding:8px;background:var(--s2);border:1px solid var(--b);border-radius:6px;color:var(--t)">
-          <button class="btn btn-primary" onclick="doUpload()">Upload</button>
-        </div>
-        <div id="uploadStatus" style="margin-top:8px;font-size:.8rem;color:var(--m)"></div>
-      </div>
-      <input class="search" placeholder="Search images..." oninput="window._imgFilter=this.value;filterGallery()" id="imgSearch">
-      <div class="gallery" id="imageGallery"><div class="empty">Loading...</div></div>
-    `;
-    loadGallery();
-  }
-};
-
 async function loadGallery(){
   try {
     const r = await fetch('/api/images/list');
@@ -635,36 +626,6 @@ async function loadGallery(){
     }
   } catch(e) { $('imageGallery').innerHTML = '<div class="empty">Failed to load</div>'; }
 }
-
-window.filterGallery = function(){
-  const q = (window._imgFilter||'').toLowerCase();
-  document.querySelectorAll('.gallery-item').forEach(el => el.style.display = el.dataset.name.includes(q) ? '' : 'none');
-};
-
-window.doUpload = async function(){
-  const file = $('uploadFile').files[0];
-  if(!file) return toast('Select a file', true);
-  const fd = new FormData(); fd.append('image', file);
-  $('uploadStatus').textContent = 'Uploading...';
-  try {
-    const r = await fetch('/api/upload', {method:'POST', body:fd});
-    const d = await r.json();
-    $('uploadStatus').textContent = '✅ ' + d.url;
-    toast('Uploaded!');
-    setTimeout(loadGallery, 500);
-  } catch(e) { $('uploadStatus').textContent = '❌ Failed'; toast('Upload failed', true); }
-};
-
-window.copyImg = function(url){
-  if(window._pickField){
-    $(window._pickField).value = url;
-    closeModal();
-    window._pickField = null;
-  } else {
-    navigator.clipboard.writeText(url);
-    toast('Copied: ' + url);
-  }
-};
 
 // ==================== INIT ====================
 async function init(){
