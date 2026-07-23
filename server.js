@@ -4,11 +4,27 @@ const path = require('path');
 const session = require('express-session');
 const multer = require('multer');
 const crypto = require('crypto');
+const compression = require('compression');
 
 const app = express();
 const PORT = 8765;
 const CONTENT_DIR = path.join(__dirname, 'content');
 const IMAGES_DIR = path.join(__dirname, 'images');
+
+// Gzip compression for all responses
+app.use(compression({ level: 6, threshold: 256 }));
+
+// Cache headers for static assets
+const CACHE_YEAR = 'public, max-age=31536000, immutable';
+const CACHE_SHORT = 'public, max-age=300';
+const CACHE_NO = 'no-cache';
+
+// Static images: cache 1 year
+app.use('/images', express.static(IMAGES_DIR, { maxAge: '1y', immutable: true }));
+app.use('/img', express.static(IMAGES_DIR, { maxAge: '1y', immutable: true }));
+
+// Admin panel assets: cache 1 hour
+app.use('/admin-assets', express.static(path.join(__dirname, 'admin-panel'), { maxAge: '1h' }));
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
@@ -21,13 +37,8 @@ app.use(session({
 
 app.use(express.json({ limit: '50mb' }));
 
-// Serve images at /img/ (not /images/ to avoid conflict with relative paths)
-app.use('/img', express.static(IMAGES_DIR));
-// Also serve at /images/ for backward compat
-app.use('/images', express.static(IMAGES_DIR));
-
-// Serve admin panel static files
-app.use('/admin-assets', express.static(path.join(__dirname, 'admin-panel')));
+// Serve admin panel static files (with cache)
+app.use('/admin-assets', express.static(path.join(__dirname, 'admin-panel'), { maxAge: '1h' }));
 
 // Multer for uploads
 const storage = multer.diskStorage({
@@ -76,11 +87,28 @@ function saveData(name, data) {
   fs.writeFileSync(path.join(CONTENT_DIR, name + '.json'), JSON.stringify(data, null, 2), 'utf8');
 }
 
-// Bulk data for site (ONE call)
+// In-memory cache for bulk data (refreshed on admin save)
+let bulkCache = null;
+let bulkCacheTime = 0;
+
+// Admin save also invalidates cache
+const origSave = saveData;
+saveData = function(name, data) {
+  origSave(name, data);
+  bulkCache = null;
+};
+
 app.get('/api/bulk-data', (req, res) => {
+  if (bulkCache && Date.now() - bulkCacheTime < 10000) {
+    res.set('Cache-Control', 'public, max-age=10');
+    return res.json(bulkCache);
+  }
   const bulk = {};
   ['menu','featured','i18n','categories','times','guests','visits','empty-category','events','site']
     .forEach(f => { const p = path.join(CONTENT_DIR, f + '.json'); if (fs.existsSync(p)) bulk[f] = JSON.parse(fs.readFileSync(p, 'utf8')); });
+  bulkCache = bulk;
+  bulkCacheTime = Date.now();
+  res.set('Cache-Control', 'public, max-age=10');
   res.json(bulk);
 });
 
@@ -88,11 +116,13 @@ app.get('/api/bulk-data', (req, res) => {
 app.get('/api/data/:name', (req, res) => {
   const data = loadData(req.params.name);
   if (!data) return res.status(404).json({ error: 'Not found' });
+  res.set('Cache-Control', 'public, max-age=10');
   res.json(data);
 });
 
 // Admin: get data
 app.get('/api/admin/data/:name', requireAuth, (req, res) => {
+  res.set('Cache-Control', 'no-cache');
   res.json(loadData(req.params.name) || {});
 });
 
