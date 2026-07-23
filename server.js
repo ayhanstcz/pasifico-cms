@@ -12,7 +12,6 @@ const IMAGES_DIR = path.join(__dirname, 'images');
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
-// Session
 app.use(session({
   secret: crypto.randomBytes(32).toString('hex'),
   resave: false,
@@ -21,35 +20,35 @@ app.use(session({
 }));
 
 app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Static images (must be before catch-all)
+// Serve images at /img/ (not /images/ to avoid conflict with relative paths)
+app.use('/img', express.static(IMAGES_DIR));
+// Also serve at /images/ for backward compat
 app.use('/images', express.static(IMAGES_DIR));
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
+
+// Serve admin panel static files
+app.use('/admin-assets', express.static(path.join(__dirname, 'admin-panel')));
 
 // Multer for uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, IMAGES_DIR),
   filename: (req, file, cb) => {
-    // Use original name, prefix timestamp to avoid collisions
     const ext = path.extname(file.originalname);
     const name = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
-    cb(null, name + ext);
+    cb(null, Date.now() + '_' + name + ext);
   }
 });
 const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 
-// Auth
 function requireAuth(req, res, next) {
   if (req.session.authenticated) return next();
   if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'Unauthorized' });
-  res.redirect('/admin/login');
+  res.redirect('/admin-panel/login.html');
 }
 
 // ===================== AUTH =====================
 app.post('/api/login', (req, res) => {
-  const { password } = req.body;
-  if (password === ADMIN_PASSWORD) {
+  if (req.body.password === ADMIN_PASSWORD) {
     req.session.authenticated = true;
     return res.json({ ok: true });
   }
@@ -74,40 +73,30 @@ function loadData(name) {
 }
 
 function saveData(name, data) {
-  const p = path.join(CONTENT_DIR, name + '.json');
-  fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf8');
+  fs.writeFileSync(path.join(CONTENT_DIR, name + '.json'), JSON.stringify(data, null, 2), 'utf8');
 }
 
-// 🔥 BULK DATA — site loader calls this ONCE instead of 8 separate fetches
+// Bulk data for site (ONE call)
 app.get('/api/bulk-data', (req, res) => {
   const bulk = {};
-  const files = ['menu','featured','i18n','categories','times','guests','visits','empty-category','events','site'];
-  for (const f of files) {
-    const p = path.join(CONTENT_DIR, f + '.json');
-    if (fs.existsSync(p)) bulk[f] = JSON.parse(fs.readFileSync(p, 'utf8'));
-  }
+  ['menu','featured','i18n','categories','times','guests','visits','empty-category','events','site']
+    .forEach(f => { const p = path.join(CONTENT_DIR, f + '.json'); if (fs.existsSync(p)) bulk[f] = JSON.parse(fs.readFileSync(p, 'utf8')); });
   res.json(bulk);
 });
 
-// Individual data (kept for admin panel)
+// Individual data
 app.get('/api/data/:name', (req, res) => {
   const data = loadData(req.params.name);
   if (!data) return res.status(404).json({ error: 'Not found' });
   res.json(data);
 });
 
-// Admin API
-app.get('/api/admin/entries', requireAuth, (req, res) => {
-  const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith('.json'));
-  res.json(files.map(f => ({ name: f.replace('.json', '') })));
-});
-
+// Admin: get data
 app.get('/api/admin/data/:name', requireAuth, (req, res) => {
-  const data = loadData(req.params.name);
-  if (!data) return res.status(404).json({ error: 'Not found' });
-  res.json(data);
+  res.json(loadData(req.params.name) || {});
 });
 
+// Admin: save data
 app.put('/api/admin/data/:name', requireAuth, (req, res) => {
   saveData(req.params.name, req.body);
   res.json({ ok: true });
@@ -115,72 +104,40 @@ app.put('/api/admin/data/:name', requireAuth, (req, res) => {
 
 // ===================== IMAGES =====================
 
-// Recursive image listing
 function walkImages(dir, prefix = '') {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  if (!fs.existsSync(dir)) return [];
   const files = [];
-  for (const e of entries) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, e.name);
     const rel = prefix ? prefix + '/' + e.name : e.name;
-    if (e.isDirectory()) {
-      files.push(...walkImages(full, rel));
-    } else if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(e.name)) {
-      files.push(rel);
-    }
+    if (e.isDirectory()) files.push(...walkImages(full, rel));
+    else if (/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i.test(e.name)) files.push(rel);
   }
   return files;
 }
 
 app.get('/api/images/list', requireAuth, (req, res) => {
-  if (!fs.existsSync(IMAGES_DIR)) return res.json({ images: [] });
-  const files = walkImages(IMAGES_DIR);
-  res.json({ images: files });
+  res.json({ images: walkImages(IMAGES_DIR) });
 });
 
-// Upload single image
 app.post('/api/upload', requireAuth, upload.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file' });
   res.json({ url: '/images/' + req.file.filename });
 });
 
-// Upload with custom folder path
-app.post('/api/upload-to', requireAuth, (req, res) => {
-  const folder = req.body.folder || '';
-  const dest = folder ? path.join(IMAGES_DIR, folder) : IMAGES_DIR;
-  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-
-  upload.single('image')(req, res, (err) => {
-    if (err) return res.status(400).json({ error: err.message });
-    if (!req.file) return res.status(400).json({ error: 'No file' });
-    // Move to custom folder if needed
-    const targetPath = path.join(dest, req.file.filename);
-    if (req.file.path !== targetPath) {
-      fs.renameSync(req.file.path, targetPath);
-    }
-    const urlPath = folder ? `/images/${folder}/${req.file.filename}` : `/images/${req.file.filename}`;
-    res.json({ url: urlPath });
-  });
-});
-
-// ===================== ADMIN PANEL =====================
+// ===================== ADMIN PANEL REDIRECT =====================
 
 app.get('/admin', (req, res) => {
-  if (!req.session.authenticated) return res.redirect('/admin/login');
-  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
-});
-
-app.get('/admin/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin', 'login.html'));
+  if (!req.session.authenticated) return res.redirect('/admin-panel/login.html');
+  res.sendFile(path.join(__dirname, 'admin-panel', 'index.html'));
 });
 
 // ===================== PUBLIC SITE =====================
 
-// Serve index.html — everything else is static
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Catch-all for static files
 app.use(express.static(__dirname));
 
 app.listen(PORT, '0.0.0.0', () => {

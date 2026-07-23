@@ -13,7 +13,7 @@
       "az": "Creamy, bright, a little flashy. Exactly the right opener.",
       "ru": "Creamy, bright, a little flashy. Exactly the right opener."
     },
-    "img": "images/food_and_cigarettes/004_MANGO_SENSEI_ROLL.jpeg",
+    "img": "/images/food_and_cigarettes/004_MANGO_SENSEI_ROLL.jpeg",
     "tag": {
       "en": "SUSHI & ROLLS",
       "tr": "SUSHI & ROLLS",
@@ -35,7 +35,7 @@
       "az": "Clean fire, soft center, zero nonsense.",
       "ru": "Clean fire, soft center, zero nonsense."
     },
-    "img": "images/food_and_cigarettes/076_BRAZILIAN_BEEF_FILLET.jpeg",
+    "img": "/images/food_and_cigarettes/076_BRAZILIAN_BEEF_FILLET.jpeg",
     "tag": {
       "en": "MAINS",
       "tr": "ANA YEMEK",
@@ -57,7 +57,7 @@
       "az": "Warm core, cold finish, does the job every time.",
       "ru": "Warm core, cold finish, does the job every time."
     },
-    "img": "images/food_and_cigarettes/102_CHOCOLATE_FONDANT.jpeg",
+    "img": "/images/food_and_cigarettes/102_CHOCOLATE_FONDANT.jpeg",
     "tag": {
       "en": "DESSERT",
       "tr": "TATLI",

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Pasifico</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0e0e0e;--s1:#181818;--s2:#222;--b:#2c2c2c;--t:#eee;--m:#777;--g:#b8860b;--gh:#d4a017;--font:-apple-system,system-ui,sans-serif}
+body{background:var(--bg);color:var(--t);font-family:var(--font);font-size:14px}
+/* Login */
+.login{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:24px}
+.login-box{background:var(--s1);border:1px solid var(--b);border-radius:16px;padding:40px;width:360px;max-width:94vw}
+.login-box h1{font-size:1.2rem;margin-bottom:4px}
+.login-box .sub{color:var(--m);font-size:.82rem;margin-bottom:28px}
+.login-box input{width:100%;padding:14px 16px;background:#0a0a0a;border:1px solid var(--b);border-radius:8px;color:var(--t);font-size:.9rem;outline:none;margin-bottom:16px}
+.login-box input:focus{border-color:var(--g)}
+.login-box button{width:100%;padding:14px;background:var(--g);border:0;border-radius:8px;color:#0e0e0e;font-weight:600;cursor:pointer}
+.login-box button:hover{background:var(--gh)}
+.login-box .err{color:#f44;font-size:.78rem;display:none;margin-top:10px}
+
+/* Dashboard */
+.app{display:none;max-width:1400px;margin:0 auto;padding:16px}
+.app.open{display:block}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.topbar h1{font-size:1.15rem}
+.topbar h1 span{color:var(--g)}
+.topbar .actions{display:flex;gap:8px;align-items:center}
+.topbar .actions a{padding:8px 16px;border:1px solid var(--b);border-radius:6px;font-size:.78rem;color:var(--t);text-decoration:none}
+.topbar .actions a:hover{border-color:var(--m)}
+.topbar .actions .view-site{background:var(--g);border-color:var(--g);color:#0e0e0e;font-weight:500}
+.logout{background:none;border:1px solid var(--b);color:var(--m);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.78rem}
+.logout:hover{border-color:#f44;color:#f44}
+
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--b);margin-bottom:20px;overflow-x:auto}
+.tab{padding:12px 20px;font-size:.82rem;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;background:none;border-left:0;border-right:0;border-top:0;white-space:nowrap}
+.tab:hover{color:var(--t)}
+.tab.active{color:var(--g);border-bottom-color:var(--g)}
+
+/* Cards */
+.card{background:var(--s1);border:1px solid var(--b);border-radius:12px;padding:20px;margin-bottom:16px}
+.card h3{font-size:.95rem;color:var(--g);margin-bottom:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:.68rem;color:var(--m);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+input,textarea,select{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--b);border-radius:6px;color:var(--t);font-size:.85rem;outline:none}
+textarea{resize:vertical;min-height:50px;font-family:var(--font)}
+input:focus,textarea:focus,select:focus{border-color:var(--g)}
+
+/* Buttons */
+.btn{padding:10px 20px;border:0;border-radius:6px;font-size:.82rem;cursor:pointer;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--g);color:#0e0e0e}
+.btn-primary:hover{background:var(--gh)}
+.btn-secondary{background:var(--s2);color:var(--t);border:1px solid var(--b)}
+.btn-secondary:hover{background:#333}
+.btn-danger{background:transparent;color:#f44;border:1px solid #f44}
+.btn-danger:hover{background:#f441}
+.btn-sm{padding:6px 12px;font-size:.72rem}
+.gap-8{display:flex;gap:8px;flex-wrap:wrap}
+.mt-16{margin-top:16px}
+
+/* Image preview */
+.img-preview{width:80px;height:60px;border-radius:6px;object-fit:cover;background:var(--s2);border:1px solid var(--b);flex-shrink:0}
+.img-preview-lg{width:160px;height:120px;border-radius:8px;object-fit:cover;background:var(--s2);border:1px solid var(--b)}
+.flex{display:flex;gap:12px;align-items:center}
+
+/* Item cards */
+.items{display:grid;gap:10px}
+.item{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;display:flex;gap:12px;align-items:start}
+.item .info{flex:1;min-width:0}
+.item .info h4{font-size:.85rem;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .info small{color:var(--m);font-size:.72rem}
+.item .info .price{color:var(--g)}
+.item .actions{flex-shrink:0}
+
+/* Image gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.gallery-item{border:1px solid var(--b);border-radius:8px;overflow:hidden;background:var(--s2)}
+.gallery-item .thumb{height:120px;display:flex;align-items:center;justify-content:center;background:#0a0a0a;overflow:hidden}
+.gallery-item .thumb img{max-width:100%;max-height:100%;object-fit:cover}
+.gallery-item .meta{padding:8px}
+.gallery-item .meta .name{font-size:.62rem;color:var(--m);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;padding:12px 20px;background:var(--g);color:#0e0e0e;border-radius:8px;font-size:.82rem;z-index:999;display:none;animation:slideUp .2s ease}
+.toast.err{background:#f44;color:#fff}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat{border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center;background:var(--s1)}
+.stat .n{font-size:1.8rem;font-weight:700;color:var(--g)}
+.stat .l{font-size:.72rem;color:var(--m);margin-top:4px}
+
+/* Lang tag */
+.ltag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:.58rem;font-weight:600;margin-right:3px}
+.ltag.en{background:#1e3a5f;color:#7dd3fc}
+.ltag.tr{background:#3b1e1e;color:#fca5a5}
+.ltag.az{background:#1e3b2e;color:#86efac}
+.ltag.ru{background:#3b2e1e;color:#fcd34d}
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-box{background:var(--s1);border:1px solid var(--b);border-radius:16px;padding:28px;width:90vw;max-width:800px;max-height:90vh;overflow-y:auto}
+.modal-box h3{font-size:1.1rem;margin-bottom:16px}
+
+/* Empty state */
+.empty{padding:40px 0;text-align:center;color:var(--m);font-size:.85rem;grid-column:1/-1}
+
+/* Search */
+.search{width:100%;padding:10px 14px;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--t);margin-bottom:12px;outline:none}
+.search:focus{border-color:var(--g)}
+
+@media(max-width:768px){
+  .row,.stats{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .app{padding:12px}
+  .card{padding:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login" id="loginView">
+  <div class="login-box">
+    <h1>Pasifico CMS</h1>
+    <p class="sub">Admin panel</p>
+    <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">Sign in</button>
+    <p class="err" id="loginErr">Wrong password</p>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="app" id="app">
+
+  <div class="topbar">
+    <h1>Pasifico <span>CMS</span></h1>
+    <div class="actions">
+      <a href="/" target="_blank" class="view-site">🔍 View Site</a>
+      <a href="/admin-panel/login.html" target="_blank">🔐 Admin</a>
+      <button class="logout" onclick="logout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="content"></div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== STATE ====================
+const LANGS = ['en','tr','az','ru'];
+const LANG_LABELS = {en:'EN',tr:'TR',az:'AZ',ru:'RU'};
+const L = LANGS;
+const LL = LANG_LABELS;
+
+// ==================== HELPERS ====================
+function $(id){return document.getElementById(id)}
+function toast(msg,err){const t=$('toast');t.textContent=msg;t.className='toast'+(err?' err':'');clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2500);t.style.display='block'}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function closeModal(){$('modal').classList.remove('open')}
+function openModal(h){$('modalBody').innerHTML=h;$('modal').classList.add('open')}
+
+async function api(path,opts={}){
+  const r=await fetch(path,{headers:{'Content-Type':'application/json',...opts.headers},...opts});
+  if(r.status===401){location.reload();throw new Error('Auth')}
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error||'Error')}
+  return r.json()
+}
+
+async function loadData(n){return api('/api/data/'+n)}
+async function saveData(n,d){return api('/api/admin/data/'+n,{method:'PUT',body:JSON.stringify(d)})}
+
+// ==================== AUTH ====================
+async function login(){
+  try{
+    await api('/api/login',{method:'POST',body:JSON.stringify({password:$('pw').value})});
+    $('loginView').style.display='none';
+    $('app').classList.add('open');
+    init();
+  }catch(e){$('loginErr').style.display='block'}
+}
+async function logout(){await fetch('/api/logout',{method:'POST'});location.reload()}
+
+// ==================== TABS ====================
+const TABS = [
+  {id:'dash',label:'📊 Dashboard'},
+  {id:'menu',label:'🍣 Menu'},
+  {id:'featured',label:'⭐ Featured'},
+  {id:'events',label:'🎭 Events'},
+  {id:'texts',label:'📝 Texts'},
+  {id:'site',label:'⚙️ Site'},
+  {id:'images',label:'🖼️ Images'}
+];
+
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+  renderers[id]();
+}
+
+// ==================== RENDERERS ====================
+const renderers = {};
+
+// ─── DASHBOARD ───
+renderers.dash = async function(){
+  const [menu,cat,i18n,ev] = await Promise.all([loadData('menu'),loadData('categories'),loadData('i18n'),loadData('events')]);
+  const total = Object.values(menu).flat().length;
+  const langCount = Object.keys(i18n).length;
+  $('content').innerHTML = `
+    <div class="stats">
+      <div class="stat"><div class="n">${total}</div><div class="l">Menu Items</div></div>
+      <div class="stat"><div class="n">${cat.length}</div><div class="l">Categories</div></div>
+      <div class="stat"><div class="n">${langCount}</div><div class="l">Languages</div></div>
+      <div class="stat"><div class="n">${ev.length}</div><div class="l">Events</div></div>
+    </div>
+    <div class="card">
+      <h3>Welcome</h3>
+      <p style="color:var(--m);line-height:1.6">Everything you edit here saves instantly to JSON files. <br>Open <a href="/" target="_blank" style="color:var(--g)">the site</a> in another tab to see changes live.</p>
+    </div>`;
+};
+
+// ─── MENU ───
+renderers.menu = async function(){
+  const menuData = await loadData('menu');
+  const cats = await loadData('categories');
+  const catKeys = Object.keys(menuData);
+  let currentCat = catKeys[0];
+
+  function renderItems(catKey){
+    const items = menuData[catKey]||[];
+    const cat = cats.find(c=>c.key===catKey);
+    const h = items.map((x,i)=>`
+      <div class="item">
+        <img class="img-preview" src="${x.img||''}" onerror="this.style.display='none'" loading="lazy">
+        <div class="info">
+          <h4>${esc(x.name.en)}</h4>
+          <small>${cat?cat.label.en:catKey} · <span class="price">${x.price} ₼</span></small>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary btn-sm" onclick="editMenuItem('${catKey}',${i})">Edit</button>
+        </div>
+      </div>
+    `).join('');
+    $('menuList').innerHTML = h || '<div class="empty">No items</div>';
+  }
+
+  const tabsHtml = catKeys.map(k => `<button class="tab ${k===currentCat?'active':''}" onclick="switchMenuCat('${k}')">${k}</button>`).join('');
+
+  $('content').innerHTML = `
+    <div class="tabs" id="menuCatTabs">${tabsHtml}</div>
+    <input class="search" placeholder="Search menu items..." oninput="searchMenu(this.value)">
+    <div class="items" id="menuList"></div>
+    <div class="mt-16 gap-8">
+      <button class="btn btn-primary" onclick="addMenuItem()">+ Add Item</button>
+    </div>
+  `;
+
+  window.switchMenuCat = function(k){currentCat=k;renderItems(k);document.querySelectorAll('#menuCatTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===k))};
+  window.searchMenu = function(q){
+    const l=q.toLowerCase();
+    document.querySelectorAll('.item').forEach(el=>{
+      el.style.display=el.textContent.toLowerCase().includes(l)?'':'none';
+    });
+  };
+  renderItems(currentCat);
+  window._menuData = menuData;
+  window._cats = cats;
+};
+
+window.editMenuItem = async function(catKey, idx){
+  const menu = window._menuData || await loadData('menu');
+  const item = JSON.parse(JSON.stringify(menu[catKey][idx]));
+
+  const nameFields = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Name</label><input id="mn_${l}" value="${esc(item.name[l]||'')}"></div>`).join('');
+  const descFields = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Description</label><textarea id="md_${l}">${esc(item.desc?.[l]||'')}</textarea></div>`).join('');
+
+  openModal(`
+    <h3>Edit: ${esc(item.name.en)}</h3>
+    <div style="display:flex;gap:16px;margin-bottom:16px">
+      <div>
+        <img class="img-preview-lg" id="imgPreview" src="${item.img||''}" onerror="this.style.display='none'">
+      </div>
+      <div style="flex:1">
+        <label>Price (₼)</label>
+        <input id="mprice" value="${esc(item.price||'')}" style="margin-bottom:12px">
+        <label>Image</label>
+        <div class="flex">
+          <input id="mimg" value="${esc(item.img||'')}" placeholder="/images/..." style="flex:1">
+          <button class="btn btn-secondary btn-sm" onclick="pickImage('mimg')">Browse</button>
+          <input type="file" id="mimgFile" accept="image/*" style="display:none" onchange="uploadForField('mimg',this)">
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('mimgFile').click()">Upload</button>
+        </div>
+      </div>
+    </div>
+    <h5 style="font-size:.8rem;color:var(--m);margin-bottom:8px">Names</h5>
+    <div class="row">${nameFields}</div>
+    <h5 style="font-size:.8rem;color:var(--m);margin:12px 0 8px">Descriptions</h5>
+    <div class="row" style="grid-template-columns:1fr">${descFields}</div>
+    <div class="gap-8 mt-16">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveMenuItem('${catKey}',${idx})">Save</button>
+    </div>
+  `);
+};
+
+window.saveMenuItem = async function(catKey, idx){
+  const menu = window._menuData || await loadData('menu');
+  menu[catKey][idx].name = {};
+  menu[catKey][idx].desc = {};
+  L.forEach(l => { menu[catKey][idx].name[l] = $(`mn_${l}`).value; menu[catKey][idx].desc[l] = $(`md_${l}`).value; });
+  menu[catKey][idx].price = $('mprice').value;
+  menu[catKey][idx].img = $('mimg').value;
+  await saveData('menu', menu);
+  window._menuData = menu;
+  closeModal();
+  toast('Saved!');
+  renderers.menu();
+};
+
+window.addMenuItem = async function(){
+  const menu = window._menuData || await loadData('menu');
+  const cats = window._cats || await loadData('categories');
+  const catOpts = cats.map(c => `<option value="${c.key}">${c.label.en}</option>`).join('');
+
+  openModal(`
+    <h3>Add Menu Item</h3>
+    <div class="row">
+      <div>
+        <label>Category</label>
+        <select id="newCat">${catOpts}</select>
+      </div>
+      <div>
+        <label>Price (₼)</label>
+        <input id="newPrice" value="0">
+      </div>
+    </div>
+    ${L.map(l => `<div style="margin-bottom:8px">
+      <label><span class="ltag ${l}">${LL[l]}</span> Name</label>
+      <input id="newName_${l}" placeholder="Name in ${l}">
+    </div>`).join('')}
+    <div class="gap-8 mt-16">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="doAddMenuItem()">Add</button>
+    </div>
+  `);
+};
+
+window.doAddMenuItem = async function(){
+  const menu = window._menuData || await loadData('menu');
+  const cat = $('newCat').value;
+  if (!menu[cat]) menu[cat] = [];
+  const names = {}; L.forEach(l => names[l] = $(`newName_${l}`).value);
+  menu[cat].push({ name: names, price: $('newPrice').value, desc: {}, img: '' });
+  await saveData('menu', menu);
+  window._menuData = menu;
+  closeModal();
+  toast('Item added!');
+  renderers.menu();
+};
+
+window.uploadForField = async function(fieldId, input){
+  if(!input.files[0]) return;
+  const fd = new FormData(); fd.append('image', input.files[0]);
+  const r = await fetch('/api/upload', {method:'POST', body:fd});
+  const d = await r.json();
+  $(fieldId).value = d.url;
+  const preview = document.getElementById('imgPreview');
+  if(preview) preview.src = d.url;
+  toast('Image uploaded!');
+};
+
+window.pickImage = function(fieldId){
+  renderers.images(true, fieldId);
+};
+
+// ─── FEATURED ───
+renderers.featured = async function(){
+  const fp = await loadData('featured');
+  let h = '';
+  for(const [key, p] of Object.entries(fp)){
+    const imgField = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Name</label><input id="fp_${key}_n_${l}" value="${esc(p.name[l]||'')}"></div>`).join('');
+    const descField = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Desc</label><textarea id="fp_${key}_d_${l}">${esc(p.desc[l]||'')}</textarea></div>`).join('');
+    h += `<div class="card">
+      <div class="flex" style="margin-bottom:12px">
+        <img class="img-preview" src="${p.img||''}" onerror="this.style.display='none'">
+        <div>
+          <h3 style="margin:0">${p.name.en}</h3>
+          <span class="price">${p.price} ₼</span>
+        </div>
+      </div>
+      <div class="row">
+        <div><label>Price (₼)</label><input id="fp_${key}_price" value="${esc(p.price)}"></div>
+        <div>
+          <label>Image</label>
+          <div class="flex">
+            <input id="fp_${key}_img" value="${esc(p.img)}" style="flex:1">
+            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('fp_${key}_file').click()">Upload</button>
+            <input type="file" id="fp_${key}_file" accept="image/*" style="display:none" onchange="uploadForFieldKey('${key}','fp_${key}_img',this)">
+          </div>
+        </div>
+      </div>
+      <h5 style="font-size:.8rem;color:var(--m);margin:12px 0 8px">Names</h5>
+      <div class="row">${imgField}</div>
+      <h5 style="font-size:.8rem;color:var(--m);margin:12px 0 8px">Descriptions</h5>
+      <div class="row">${descField}</div>
+    </div>`;
+  }
+  $('content').innerHTML = h + `<button class="btn btn-primary mt-16" onclick="saveFeatured()">Save Featured Plates</button>`;
+};
+
+window.uploadForFieldKey = async function(key, fieldId, input){
+  if(!input.files[0]) return;
+  const fd = new FormData(); fd.append('image', input.files[0]);
+  const r = await fetch('/api/upload', {method:'POST', body:fd});
+  const d = await r.json();
+  $(fieldId).value = d.url;
+  toast('Uploaded!');
+};
+
+window.saveFeatured = async function(){
+  const fp = await loadData('featured');
+  for(const key of Object.keys(fp)){
+    fp[key].price = $(`fp_${key}_price`).value;
+    fp[key].img = $(`fp_${key}_img`).value;
+    fp[key].name = {}; fp[key].desc = {};
+    L.forEach(l => { fp[key].name[l] = $(`fp_${key}_n_${l}`).value; fp[key].desc[l] = $(`fp_${key}_d_${l}`).value; });
+  }
+  await saveData('featured', fp);
+  toast('Featured saved!');
+};
+
+// ─── EVENTS ───
+renderers.events = async function(){
+  const ev = await loadData('events');
+  let h = '';
+  ev.forEach((e,i)=>{
+    const titleFields = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Title</label><input id="ev_${i}_t_${l}" value="${esc(e.title[l]||'')}"></div>`).join('');
+    const descFields = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Desc</label><textarea id="ev_${i}_d_${l}">${esc(e.desc[l]||'')}</textarea></div>`).join('');
+    const metaFields = L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span> Meta</label><input id="ev_${i}_m_${l}" value="${esc(e.meta[l]||'')}"></div>`).join('');
+    h += `<div class="card">
+      <div class="flex" style="margin-bottom:12px">
+        <img class="img-preview" src="${e.img||''}" onerror="this.style.display='none'">
+        <div style="flex:1">
+          <div class="flex" style="justify-content:space-between">
+            <h3 style="margin:0">${e.title.en}</h3>
+            <button class="btn btn-danger btn-sm" onclick="deleteEvent(${i})">Delete</button>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:6px">
+            <div><label style="display:inline">Day</label><input id="ev_${i}_day" value="${e.day}" style="width:60px;display:inline-block"></div>
+            <div><label style="display:inline">Month key</label><input id="ev_${i}_mon" value="${e.monthKey}" style="width:120px;display:inline-block"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label>Image</label>
+        <div class="flex">
+          <input id="ev_${i}_img" value="${e.img}" style="flex:1">
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('ev_${i}_file').click()">Upload</button>
+          <input type="file" id="ev_${i}_file" accept="image/*" style="display:none" onchange="uploadForFieldKey('ev_${i}','ev_${i}_img',this)">
+        </div>
+      </div>
+      <h5 style="font-size:.8rem;color:var(--m);margin:12px 0 8px">Titles</h5>
+      <div class="row">${titleFields}</div>
+      <h5 style="font-size:.8rem;color:var(--m);margin:12px 0 8px">Descriptions</h5>
+      <div class="row">${descFields}</div>
+      <h5 style="font-size:.8rem;color:var(--m);margin:12px 0 8px">Meta (time, capacity)</h5>
+      <div class="row">${metaFields}</div>
+    </div>`;
+  });
+  $('content').innerHTML = h + `<div class="gap-8 mt-16"><button class="btn btn-primary" onclick="addEvent()">+ Add Event</button><button class="btn btn-primary" onclick="saveAllEvents()">Save All Events</button></div>`;
+};
+
+window.saveAllEvents = async function(){
+  const ev = await loadData('events');
+  ev.forEach((e,i)=>{
+    e.day = parseInt($(`ev_${i}_day`).value)||e.day;
+    e.monthKey = $(`ev_${i}_mon`).value||e.monthKey;
+    e.img = $(`ev_${i}_img`).value||e.img;
+    e.title={}; e.desc={}; e.meta={};
+    L.forEach(l=>{e.title[l]=$(`ev_${i}_t_${l}`).value;e.desc[l]=$(`ev_${i}_d_${l}`).value;e.meta[l]=$(`ev_${i}_m_${l}`).value});
+  });
+  await saveData('events', ev);
+  toast('Events saved!');
+};
+
+window.addEvent = async function(){
+  const ev = await loadData('events');
+  ev.push({id:'ev-'+Date.now(),day:1,monthKey:'month.jan',title:{en:'New Event',tr:'Yeni',az:'Yeni',ru:'Новое'},desc:{en:'',tr:'',az:'',ru:''},meta:{en:'',tr:'',az:'',ru:''},img:''});
+  await saveData('events', ev);
+  toast('Event added!');
+  renderers.events();
+};
+
+window.deleteEvent = async function(i){
+  const ev = await loadData('events');
+  ev.splice(i,1);
+  await saveData('events', ev);
+  toast('Deleted');
+  renderers.events();
+};
+
+// ─── TEXTS (i18n) ───
+renderers.texts = async function(){
+  const i18n = await loadData('i18n');
+  const keys = [...new Set(L.flatMap(l=>Object.keys(i18n[l]||{})))].sort();
+  const groups = {};
+  keys.forEach(k=>{const p=k.split('.')[0];if(!groups[p])groups[p]=[];groups[p].push(k)});
+
+  let html = '';
+  for(const [grp, ks] of Object.entries(groups)){
+    html += `<div class="card"><h3>${grp}</h3>`;
+    ks.forEach(k => {
+      html += `<div class="i18n-row" data-key="${k}" style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--b)">
+        <div style="font-size:.7rem;color:var(--m);font-family:monospace;margin-bottom:6px">${k}</div>
+        <div class="row">${L.map(l => `<div><label><span class="ltag ${l}">${LL[l]}</span></label><input class="i18n-inp" data-key="${k}" data-lang="${l}" value="${esc(i18n[l]?.[k]||'')}"></div>`).join('')}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  $('content').innerHTML = html + `<button class="btn btn-primary mt-16" onclick="saveI18n()">Save All Translations</button>`;
+};
+
+window.saveI18n = async function(){
+  const i18n = await loadData('i18n');
+  document.querySelectorAll('.i18n-inp').forEach(el=>{
+    const k=el.dataset.key, l=el.dataset.lang;
+    if(i18n[l]) i18n[l][k]=el.value;
+  });
+  await saveData('i18n', i18n);
+  toast('Translations saved!');
+};
+
+// ─── SITE CONFIG ───
+renderers.site = async function(){
+  const site = await loadData('site');
+  $('content').innerHTML = `
+    <div class="card">
+      <h3>Contact</h3>
+      <div class="row">
+        <div><label>Phone</label><input id="s_phone" value="${esc(site.phone)}"></div>
+        <div><label>Email</label><input id="s_email" value="${esc(site.email)}"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Address</h3>
+      <div class="row">${L.map(l=>`<div><label><span class="ltag ${l}">${LL[l]}</span></label><input id="s_addr_${l}" value="${esc(site.address[l]||'')}"></div>`).join('')}</div>
+    </div>
+    <div class="card">
+      <h3>Hours</h3>
+      <div class="row" style="grid-template-columns:1fr">${L.map(l=>`<div><label><span class="ltag ${l}">${LL[l]}</span></label><textarea id="s_hours_${l}">${esc(site.hours[l]||'')}</textarea></div>`).join('')}</div>
+    </div>
+    <div class="card">
+      <h3>Social Links</h3>
+      <div class="row">
+        ${Object.entries(site.social||{}).map(([k,v])=>`<div><label>${k}</label><input id="s_social_${k}" value="${esc(v)}"></div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <h3>Hero Video</h3>
+      <div class="flex">
+        <input id="s_video" value="${esc(site.heroVideo)}" style="flex:1">
+        <button class="btn btn-secondary btn-sm" onclick="testVideo()">Test</button>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="saveSite()">Save Site Config</button>
+  `;
+};
+
+window.testVideo = function(){
+  const url = $('s_video').value;
+  if(url) window.open(url, '_blank');
+};
+
+window.saveSite = async function(){
+  const site = await loadData('site');
+  site.phone = $('s_phone').value;
+  site.email = $('s_email').value;
+  site.address = {}; site.hours = {};
+  L.forEach(l => { site.address[l] = $(`s_addr_${l}`).value; site.hours[l] = $(`s_hours_${l}`).value; });
+  if(site.social) Object.keys(site.social).forEach(k => site.social[k] = $(`s_social_${k}`).value);
+  site.heroVideo = $('s_video').value;
+  await saveData('site', site);
+  toast('Site config saved!');
+};
+
+// ─── IMAGES ───
+renderers.images = async function(pickMode=false, fieldId=''){
+  if(!pickMode){
+    $('content').innerHTML = `
+      <div class="card">
+        <h3>Upload Image</h3>
+        <div class="flex">
+          <input type="file" id="uploadFile" accept="image/*" style="flex:1;padding:8px;background:var(--s2);border:1px solid var(--b);border-radius:6px;color:var(--t)">
+          <button class="btn btn-primary" onclick="doUpload()">Upload</button>
+        </div>
+        <div id="uploadStatus" style="margin-top:8px;font-size:.8rem;color:var(--m)"></div>
+      </div>
+      <input class="search" placeholder="Search images..." oninput="window._imgFilter=this.value;filterGallery()" id="imgSearch">
+      <div class="gallery" id="imageGallery"><div class="empty">Loading...</div></div>
+    `;
+    loadGallery();
+  }
+};
+
+async function loadGallery(){
+  try {
+    const r = await fetch('/api/images/list');
+    const d = await r.json();
+    const grid = $('imageGallery');
+    if(d.images && d.images.length){
+      grid.innerHTML = d.images.map(img => {
+        const name = img.includes('/') ? img.split('/').pop() : img;
+        const folder = img.includes('/') ? img.split('/')[0] : '';
+        return `<div class="gallery-item" data-name="${img.toLowerCase()}">
+          <div class="thumb"><img src="/images/${img}" loading="lazy"></div>
+          <div class="meta">
+            <div class="name" title="${img}">${name}</div>
+            <div style="font-size:.55rem;color:var(--m)">${folder||'root'}</div>
+            <div style="display:flex;gap:4px;margin-top:6px">
+              <button class="btn btn-primary btn-sm" style="flex:1" onclick="copyImg('/images/${img}')">Copy</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    } else {
+      grid.innerHTML = '<div class="empty">No images yet</div>';
+    }
+  } catch(e) { $('imageGallery').innerHTML = '<div class="empty">Failed to load</div>'; }
+}
+
+window.filterGallery = function(){
+  const q = (window._imgFilter||'').toLowerCase();
+  document.querySelectorAll('.gallery-item').forEach(el => el.style.display = el.dataset.name.includes(q) ? '' : 'none');
+};
+
+window.doUpload = async function(){
+  const file = $('uploadFile').files[0];
+  if(!file) return toast('Select a file', true);
+  const fd = new FormData(); fd.append('image', file);
+  $('uploadStatus').textContent = 'Uploading...';
+  try {
+    const r = await fetch('/api/upload', {method:'POST', body:fd});
+    const d = await r.json();
+    $('uploadStatus').textContent = '✅ ' + d.url;
+    toast('Uploaded!');
+    setTimeout(loadGallery, 500);
+  } catch(e) { $('uploadStatus').textContent = '❌ Failed'; toast('Upload failed', true); }
+};
+
+window.copyImg = function(url){
+  if(window._pickField){
+    $(window._pickField).value = url;
+    closeModal();
+    window._pickField = null;
+  } else {
+    navigator.clipboard.writeText(url);
+    toast('Copied: ' + url);
+  }
+};
+
+// ==================== INIT ====================
+async function init(){
+  const tabsHtml = TABS.map(t => `<button class="tab ${t.id==='dash'?'active':''}" data-tab="${t.id}" onclick="switchTab('${t.id}')">${t.label}</button>`).join('');
+  $('tabs').innerHTML = tabsHtml;
+  renderers.dash();
+}
+
+// Check auth on load
+(async function(){
+  try {
+    const r = await fetch('/api/check-auth');
+    const d = await r.json();
+    if(d.authenticated){
+      $('loginView').style.display = 'none';
+      $('app').classList.add('open');
+      init();
+    }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>

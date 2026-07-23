@@ -14,7 +14,7 @@
         "az": "8 ədəd · 290q · krevet, avokado, krem pendir, kahı, · manqo sousu",
         "ru": "8 шт · 290г · креветки, авокадо, сливочный сыр, салат, · манговый соус"
       },
-      "img": "images/food_and_cigarettes/004_MANGO_SENSEI_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/004_MANGO_SENSEI_ROLL.jpeg"
     },
     {
       "name": {
@@ -30,7 +30,7 @@
         "az": "8 ədəd · 310q · təzə somon, xiyar, avokado, krem pendir, · manqo sousu",
         "ru": "8 шт · 310г · свежий лосось, огурец, авокадо, сливочный сыр, · манговый соус"
       },
-      "img": "images/food_and_cigarettes/005_SAKE_BLAZE_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/005_SAKE_BLAZE_ROLL.jpeg"
     },
     {
       "name": {
@@ -46,7 +46,7 @@
         "az": "8 ədəd · 395q · somon, colorful istiot",
         "ru": "8 шт · 395г · лосось, colorful перец"
       },
-      "img": "images/food_and_cigarettes/006_SINGAPORE_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/006_SINGAPORE_ROLL.jpeg"
     },
     {
       "name": {
@@ -62,7 +62,7 @@
         "az": "8 ədəd · 340q · krevet, avokado, qara tobiko, · krem pendir, xiyar",
         "ru": "8 шт · 340г · креветки, авокадо, черное тобико, · сливочный сыр, огурец"
       },
-      "img": "images/food_and_cigarettes/007_ELEGANCE_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/007_ELEGANCE_ROLL.jpeg"
     },
     {
       "name": {
@@ -78,7 +78,7 @@
         "az": "8 ədəd · 335q · təzə somon, avokado, krem pendir, · xiyar, şüyüd, yuzu ponzu sousu",
         "ru": "8 шт · 335г · свежий лосось, авокадо, сливочный сыр, · огурец, укроп, соус юдзу понзу"
       },
-      "img": "images/food_and_cigarettes/008_YUZU_HARMONY_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/008_YUZU_HARMONY_ROLL.jpeg"
     },
     {
       "name": {
@@ -94,7 +94,7 @@
         "az": "8 ədəd · 340q · təzə somon, avokado, krem pendir, · xiyar, bonito",
         "ru": "8 шт · 340г · свежий лосось, авокадо, сливочный сыр, · огурец, bonito"
       },
-      "img": "images/food_and_cigarettes/009_BONITA_BREEZE_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/009_BONITA_BREEZE_ROLL.jpeg"
     },
     {
       "name": {
@@ -110,7 +110,7 @@
         "az": "8 ədəd · 370q · avokado, unagi sousu, krem pendir",
         "ru": "8 шт · 370г · авокадо, соус унаги, сливочный сыр"
       },
-      "img": "images/food_and_cigarettes/010_SAMURAI_INK_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/010_SAMURAI_INK_ROLL.jpeg"
     },
     {
       "name": {
@@ -126,7 +126,7 @@
         "az": "4 ədəd · 375q · krevet, xərçəng, qışqonmaz, badam, · avokado, unagi sousu",
         "ru": "4 шт · 375г · креветки, краб, спаржа, миндаль, · авокадо, соус унаги"
       },
-      "img": "images/food_and_cigarettes/011_CRUNCHY_ALMOND_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/011_CRUNCHY_ALMOND_ROLL.jpeg"
     },
     {
       "name": {
@@ -142,7 +142,7 @@
         "az": "8 ədəd · 260q · təzə ton balığı, avokado, krem pendir",
         "ru": "8 шт · 260г · свежий тунец, авокадо, сливочный сыр"
       },
-      "img": "images/food_and_cigarettes/012_TEKKA_MAKI.jpeg"
+      "img": "/images/food_and_cigarettes/012_TEKKA_MAKI.jpeg"
     },
     {
       "name": {
@@ -158,7 +158,7 @@
         "az": "8 ədəd · 350q · təzə somon, tüstülənmiş somon, avokado, · krem pendir, küncüt sousu",
         "ru": "8 шт · 350г · свежий лосось, копченый лосось, авокадо, · сливочный сыр, кунжутный соус"
       },
-      "img": "images/food_and_cigarettes/013_NORWEGIAN_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/013_NORWEGIAN_ROLL.jpeg"
     },
     {
       "name": {
@@ -174,7 +174,7 @@
         "az": "8 ədəd · 295q · təzə somon, təzə ton balığı, avokado, krem pendir, · yaşıl soğan",
         "ru": "8 шт · 295г · свежий лосось, свежий тунец, авокадо, сливочный сыр, · зеленый лук"
       },
-      "img": "images/food_and_cigarettes/014_BANZAI_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/014_BANZAI_ROLL.jpeg"
     },
     {
       "name": {
@@ -190,7 +190,7 @@
         "az": "8 ədəd · 420q · təzə somon, krevet, portağal tobiko, · avokado, xiyar, krem pendir",
         "ru": "8 шт · 420г · свежий лосось, креветки, оранжевое тобико, · авокадо, огурец, сливочный сыр"
       },
-      "img": "images/food_and_cigarettes/015_CITRUS_RAINBOW_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/015_CITRUS_RAINBOW_ROLL.jpeg"
     },
     {
       "name": {
@@ -206,7 +206,7 @@
         "az": "8 ədəd · 385q · somon, ton balığı, unagi, xərçəng",
         "ru": "8 шт · 385г · лосось, тунец, унаги, краб"
       },
-      "img": "images/food_and_cigarettes/016_NIGIRI_MIX_PLATE.jpeg"
+      "img": "/images/food_and_cigarettes/016_NIGIRI_MIX_PLATE.jpeg"
     },
     {
       "name": {
@@ -222,7 +222,7 @@
         "az": "100q · SASHIMI boşqab 9 ədəd · somon, ton balığı, levrek · somon SASHIMI 3 ədəd · levrek SASHIMI 3 ədəd · ton balığı SASHIMI 3 ədəd",
         "ru": "100г · SASHIMI тарелка 9 шт · лосось, тунец, сибас · лосось SASHIMI 3 шт · сибас SASHIMI 3 шт · тунец SASHIMI 3 шт"
       },
-      "img": "images/food_and_cigarettes/017_SASHIMI.jpeg"
+      "img": "/images/food_and_cigarettes/017_SASHIMI.jpeg"
     },
     {
       "name": {
@@ -238,7 +238,7 @@
         "az": "18 ədəd · 638q · elegance roll, bonita breeze roll, sake blaze roll, tekka maki roll-each of 4pcs · xərçəng nigiri,somon nigiri-each of one",
         "ru": "18 шт · 638г · elegance ролл, bonita breeze ролл, sake blaze ролл, tekka maki ролл-each of 4pcs · краб nigiri,лосось nigiri-each of one"
       },
-      "img": "images/food_and_cigarettes/018_SUSHI_SET_SMALL.jpeg"
+      "img": "/images/food_and_cigarettes/018_SUSHI_SET_SMALL.jpeg"
     },
     {
       "name": {
@@ -254,7 +254,7 @@
         "az": "36 ədəd · 1276q · elegance roll, bonita breeze roll, sake blaze roll, tekka maki roll-each of 8pcs · xərçəng nigiri, somon nigiri-each of 2",
         "ru": "36 шт · 1276г · elegance ролл, bonita breeze ролл, sake blaze ролл, tekka maki ролл-each of 8pcs · краб nigiri, лосось nigiri-each of 2"
       },
-      "img": "images/food_and_cigarettes/019_SUSHI_SET_BIG.jpeg"
+      "img": "/images/food_and_cigarettes/019_SUSHI_SET_BIG.jpeg"
     },
     {
       "name": {
@@ -270,7 +270,7 @@
         "az": "8 ədəd · 250q · düyü, avokado, küncüt, nori",
         "ru": "8 шт · 250г · рис, авокадо, кунжут, нори"
       },
-      "img": "images/food_and_cigarettes/021_AVOCADO_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/021_AVOCADO_ROLL.jpeg"
     },
     {
       "name": {
@@ -286,7 +286,7 @@
         "az": "8 ədəd · 240q · düyü, xərçəng qarışığı, tobico orange, avokado, · xiyar, nori, yapon mayonezi",
         "ru": "8 шт · 240г · рис, крабовый микс, tobico orange, авокадо, · огурец, нори, японский майонез"
       },
-      "img": "images/food_and_cigarettes/022_CALIFORNIA.jpeg"
+      "img": "/images/food_and_cigarettes/022_CALIFORNIA.jpeg"
     },
     {
       "name": {
@@ -302,7 +302,7 @@
         "az": "8 ədəd · 190q · düyü, krevet, küncüt, xiyar, nori",
         "ru": "8 шт · 190г · рис, креветки, кунжут, огурец, нори"
       },
-      "img": "images/food_and_cigarettes/023_TEMPURA_PRAWNS.jpeg"
+      "img": "/images/food_and_cigarettes/023_TEMPURA_PRAWNS.jpeg"
     },
     {
       "name": {
@@ -318,7 +318,7 @@
         "az": "8 ədəd · 200q · düyü, krevet, krem pendir, avokado, xiyar, · nori, ədviyyatlı mayonez, tempura xəmiri",
         "ru": "8 шт · 200г · рис, креветки, сливочный сыр, авокадо, огурец, · нори, острый майонез, темпурное тесто"
       },
-      "img": "images/food_and_cigarettes/024_TAYAMA_HOT_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/024_TAYAMA_HOT_ROLL.jpeg"
     },
     {
       "name": {
@@ -334,7 +334,7 @@
         "az": "8 ədəd · 220q · düyü, xərçəng qarışığı, krevet, avokado, xiyar, · nori, küncüt sousu, krem pendir",
         "ru": "8 шт · 220г · рис, крабовый микс, креветки, авокадо, огурец, · нори, кунжутный соус, сливочный сыр"
       },
-      "img": "images/food_and_cigarettes/025_PINK_LADY.jpeg"
+      "img": "/images/food_and_cigarettes/025_PINK_LADY.jpeg"
     },
     {
       "name": {
@@ -350,7 +350,7 @@
         "az": "8 ədəd · 260q · düyü, xərçəng qarışığı, tobico orange, avokado, xiyar, · tempura xəmiri, nori, manqo sousu",
         "ru": "8 шт · 260г · рис, крабовый микс, tobico orange, авокадо, огурец, · темпурное тесто, нори, манговый соус"
       },
-      "img": "images/food_and_cigarettes/026_HOT_AND_CRISPY_CALIFORNIA.jpeg"
+      "img": "/images/food_and_cigarettes/026_HOT_AND_CRISPY_CALIFORNIA.jpeg"
     },
     {
       "name": {
@@ -366,7 +366,7 @@
         "az": "8 ədəd · 265q · düyü, anticuchos, mayonnaise, krevet, avokado, · xiyar, nori, tempura xəmiri, unagi sousu",
         "ru": "8 шт · 265г · рис, anticuchos, mayonnaise, креветки, авокадо, · огурец, нори, темпурное тесто, соус унаги"
       },
-      "img": "images/food_and_cigarettes/027_PRAWN_VOLCANO_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/027_PRAWN_VOLCANO_ROLL.jpeg"
     },
     {
       "name": {
@@ -382,7 +382,7 @@
         "az": "8 ədəd · 250q · düyü, somon, krevet, avokado, xiyar, nori, lime, · lemon yuzu gell",
         "ru": "8 шт · 250г · рис, лосось, креветки, авокадо, огурец, нори, lime, · lemon yuzu gell"
       },
-      "img": "images/food_and_cigarettes/028_TERISHAKE_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/028_TERISHAKE_ROLL.jpeg"
     },
     {
       "name": {
@@ -398,7 +398,7 @@
         "az": "8 ədəd · 220q · düyü, somon, avokado, küncüt, nori",
         "ru": "8 шт · 220г · рис, лосось, авокадо, кунжут, нори"
       },
-      "img": "images/food_and_cigarettes/029_SALMON_AVOCADO_MAKI.jpeg"
+      "img": "/images/food_and_cigarettes/029_SALMON_AVOCADO_MAKI.jpeg"
     },
     {
       "name": {
@@ -414,7 +414,7 @@
         "az": "8 ədəd · 260q · düyü, somon, avokado, xiyar, nori, krem pendir",
         "ru": "8 шт · 260г · рис, лосось, авокадо, огурец, нори, сливочный сыр"
       },
-      "img": "images/food_and_cigarettes/030_PHILADELPHIA.jpeg"
+      "img": "/images/food_and_cigarettes/030_PHILADELPHIA.jpeg"
     },
     {
       "name": {
@@ -430,7 +430,7 @@
         "az": "8 ədəd · 230q · düyü, nori, krevet, ton balığı, xiyar, avokado, · ton balığı dressing, unagi sousu",
         "ru": "8 шт · 230г · рис, нори, креветки, тунец, огурец, авокадо, · тунец dressing, соус унаги"
       },
-      "img": "images/food_and_cigarettes/031_SPICY_TUNA.jpeg"
+      "img": "/images/food_and_cigarettes/031_SPICY_TUNA.jpeg"
     },
     {
       "name": {
@@ -446,7 +446,7 @@
         "az": "8 ədəd · 250q · düyü, xərçəng qarışığı, somon, xiyar, avokado, · teriyaki sousu, nori, yaşıl soğan",
         "ru": "8 шт · 250г · рис, крабовый микс, лосось, огурец, авокадо, · соус терияки, нори, зеленый лук"
       },
-      "img": "images/food_and_cigarettes/032_TERIYAKI_SALMON.jpeg"
+      "img": "/images/food_and_cigarettes/032_TERIYAKI_SALMON.jpeg"
     },
     {
       "name": {
@@ -462,7 +462,7 @@
         "az": "260q · tüstülənmiş somon 8 ədəd · düyü, somon tüstülənmiş, avokado, xiyar, nori, krem pendir, · yaşıl soğan",
         "ru": "260г · копченый лосось 8 шт · рис, лосось копченый, авокадо, огурец, нори, сливочный сыр, · зеленый лук"
       },
-      "img": "images/food_and_cigarettes/033_PHILADELPHIA_WITH.jpeg"
+      "img": "/images/food_and_cigarettes/033_PHILADELPHIA_WITH.jpeg"
     },
     {
       "name": {
@@ -478,7 +478,7 @@
         "az": "8 ədəd · 200q",
         "ru": "8 шт · 200г"
       },
-      "img": "images/food_and_cigarettes/034_HAMANISHI_HOT_ROLL.jpeg"
+      "img": "/images/food_and_cigarettes/034_HAMANISHI_HOT_ROLL.jpeg"
     },
     {
       "name": {
@@ -494,7 +494,7 @@
         "az": "8 ədəd · 260q · düyü, somon, avokado, xiyar, orange tobico, · ədviyyatlı mayonez",
         "ru": "8 шт · 260г · рис, лосось, авокадо, огурец, orange tobico, · острый майонез"
       },
-      "img": "images/food_and_cigarettes/035_SPICY_SALMON.jpeg"
+      "img": "/images/food_and_cigarettes/035_SPICY_SALMON.jpeg"
     },
     {
       "name": {
@@ -510,7 +510,7 @@
         "az": "8 ədəd · 230q · düyü, somon, avokado, xiyar, nori, krem pendir, · tempura xəmiri, teriyaki sousu",
         "ru": "8 шт · 230г · рис, лосось, авокадо, огурец, нори, сливочный сыр, · темпурное тесто, соус терияки"
       },
-      "img": "images/food_and_cigarettes/036_HOT_AND_CRISPY_PHILADELPHIA.jpeg"
+      "img": "/images/food_and_cigarettes/036_HOT_AND_CRISPY_PHILADELPHIA.jpeg"
     },
     {
       "name": {
@@ -526,7 +526,7 @@
         "az": "8 ədəd · 230q · unagi sousu, küncüt, krem pendir",
         "ru": "8 шт · 230г · соус унаги, кунжут, сливочный сыр"
       },
-      "img": "images/food_and_cigarettes/037_UNAGI_DRAGON.jpeg"
+      "img": "/images/food_and_cigarettes/037_UNAGI_DRAGON.jpeg"
     },
     {
       "name": {
@@ -542,7 +542,7 @@
         "az": "8 ədəd · 260q · düyü, ton balığı, somon, xərçəng qarışığı, krevet, avokado, · xiyar, unagi sousu",
         "ru": "8 шт · 260г · рис, тунец, лосось, крабовый микс, креветки, авокадо, · огурец, соус унаги"
       },
-      "img": "images/food_and_cigarettes/038_CRUNCHY_RAINBOW.jpeg"
+      "img": "/images/food_and_cigarettes/038_CRUNCHY_RAINBOW.jpeg"
     }
   ],
   "salads": [
@@ -560,7 +560,7 @@
         "az": "400q · badımcan, pomidor, göyərti, xüsusi badımcan sous",
         "ru": "400г · баклажан, помидор, травы, специальный баклажан соус"
       },
-      "img": "images/food_and_cigarettes/045_CRISPY_EGGPLANT_SALAD.jpeg"
+      "img": "/images/food_and_cigarettes/045_CRISPY_EGGPLANT_SALAD.jpeg"
     },
     {
       "name": {
@@ -576,7 +576,7 @@
         "az": "350q · toyuq döşü, kahı, xiyar, ağ kələm, · yuzu miso mayo sous",
         "ru": "350г · куриная грудка, салат, огурец, белокочанная капуста, · yuzu мисо mayo соус"
       },
-      "img": "images/food_and_cigarettes/046_CRISPY_ASIAN_SALAD_WITH_CHICKEN.jpeg"
+      "img": "/images/food_and_cigarettes/046_CRISPY_ASIAN_SALAD_WITH_CHICKEN.jpeg"
     },
     {
       "name": {
@@ -592,7 +592,7 @@
         "az": "310q · xərçəng meat, kahı, xiyar, ağ kələm, orange tobico, · nori, american garden sous",
         "ru": "310г · краб meat, салат, огурец, белокочанная капуста, orange tobico, · нори, american garden соус"
       },
-      "img": "images/food_and_cigarettes/047_CRISPY_ASIAN_SALAD_WITH_CRAB.jpeg"
+      "img": "/images/food_and_cigarettes/047_CRISPY_ASIAN_SALAD_WITH_CRAB.jpeg"
     },
     {
       "name": {
@@ -608,7 +608,7 @@
         "az": "300q · baget çörək, pomidor, mozzarella, avokado sous, · xərçəng qarışığı, orange tobico, qırmızı soğan",
         "ru": "300г · багет, помидор, моцарелла, авокадо соус, · крабовый микс, orange tobico, красный лук"
       },
-      "img": "images/food_and_cigarettes/048_MIX_BRUSCHETTA.jpeg"
+      "img": "/images/food_and_cigarettes/048_MIX_BRUSCHETTA.jpeg"
     },
     {
       "name": {
@@ -624,7 +624,7 @@
         "az": "350q · toyuq döşü, bataviya kahı, aysberq, cherry pomidor, · parmesan pendir, sezar sousu",
         "ru": "350г · куриная грудка, салат батавия, айсберг, черри, · пармезан сыр, соус цезарь"
       },
-      "img": "images/food_and_cigarettes/049_PASIFICO_CAESAR_SALAD_WITH_CHICKEN.jpeg"
+      "img": "/images/food_and_cigarettes/049_PASIFICO_CAESAR_SALAD_WITH_CHICKEN.jpeg"
     },
     {
       "name": {
@@ -640,7 +640,7 @@
         "az": "330q · krevet, bataviya kahı, aysberq, cherry pomidor, · parmesan pendir, sezar sousu",
         "ru": "330г · креветки, салат батавия, айсберг, черри, · пармезан сыр, соус цезарь"
       },
-      "img": "images/food_and_cigarettes/050_PASIFICO_CAESAR_SALAD_WITH_PRAWN.jpeg"
+      "img": "/images/food_and_cigarettes/050_PASIFICO_CAESAR_SALAD_WITH_PRAWN.jpeg"
     },
     {
       "name": {
@@ -656,7 +656,7 @@
         "az": "350q · ördək budu, çiyələk, xiyar, pear, cherry pomidor, · göyərti, kahı, xüsusi hoisin sousu",
         "ru": "350г · утиное бедро, клубника, огурец, pear, черри, · травы, салат, специальный соус хойсин"
       },
-      "img": "images/food_and_cigarettes/051_FIVE_SPICES_DUCK_SALAD.jpeg"
+      "img": "/images/food_and_cigarettes/051_FIVE_SPICES_DUCK_SALAD.jpeg"
     },
     {
       "name": {
@@ -672,7 +672,7 @@
         "az": "3 ədəd · 150q · ton balığı, ədviyyatlı mayo, tapioca ponzo pearl, rukkola",
         "ru": "3 шт · 150г · тунец, острый mayo, tapioca ponzo pearl, руккола"
       },
-      "img": "images/food_and_cigarettes/054_PASIFICO_TACOS_WITH_TUNA.jpeg"
+      "img": "/images/food_and_cigarettes/054_PASIFICO_TACOS_WITH_TUNA.jpeg"
     },
     {
       "name": {
@@ -688,7 +688,7 @@
         "az": "300q · çedar pendir, edam pendir, mozzarella pendir, parmesan pendir, · ağ pendir, göy pendir, bal , grapes · 2 pax · 4 pax",
         "ru": "300г · чеддер сыр, эдам сыр, моцарелла сыр, пармезан сыр, · белый сыр, голубой сыр, мед , grapes · 2 pax · 4 pax"
       },
-      "img": "images/food_and_cigarettes/055_ASSORTED_CHEESE_PLATE_2_pax__4_pax.jpeg"
+      "img": "/images/food_and_cigarettes/055_ASSORTED_CHEESE_PLATE_2_pax__4_pax.jpeg"
     },
     {
       "name": {
@@ -704,7 +704,7 @@
         "az": "400q · krevet, manqo, avokado, xiyar, kahı, · pomidor cherry, caramel Base sous",
         "ru": "400г · креветки, манго, авокадо, огурец, салат, · помидор cherry, caramel Base соус"
       },
-      "img": "images/food_and_cigarettes/057_PRAWNS_AND_MANGO_SALAD.jpeg"
+      "img": "/images/food_and_cigarettes/057_PRAWNS_AND_MANGO_SALAD.jpeg"
     },
     {
       "name": {
@@ -720,7 +720,7 @@
         "az": "350q · ton balığı, radish, aysberq, yerkökü, soğan küncüt & · vasabi sous",
         "ru": "350г · тунец, radish, айсберг, морковь, лук кунжут & · васаби соус"
       },
-      "img": "images/food_and_cigarettes/058_TUNA_TATAKI_SALAD.jpeg"
+      "img": "/images/food_and_cigarettes/058_TUNA_TATAKI_SALAD.jpeg"
     },
     {
       "name": {
@@ -736,7 +736,7 @@
         "az": "200q · ton balığı, avokado hass, black tobico, şallot soğan, · tar-tar dressing, papad çörək",
         "ru": "200г · тунец, авокадо hass, black tobico, лук-шалот, · tar-tar dressing, papad хлеб"
       },
-      "img": "images/food_and_cigarettes/059_SPICY_TUNA_TARTARE.jpeg"
+      "img": "/images/food_and_cigarettes/059_SPICY_TUNA_TARTARE.jpeg"
     }
   ],
   "soups": [
@@ -754,7 +754,7 @@
         "az": "250q · miso bouilion, tofu pendiri, şampinyon, · vakame, yaşıl soğan, şallot soğan",
         "ru": "250г · мисо bouilion, тофу, шампиньоны, · вакаме, зеленый лук, лук-шалот"
       },
-      "img": "images/food_and_cigarettes/061_MISO_SOUP.jpeg"
+      "img": "/images/food_and_cigarettes/061_MISO_SOUP.jpeg"
     },
     {
       "name": {
@@ -770,7 +770,7 @@
         "az": "400q · ramen bouilion, toyuq döşü, şampinyon , · əriştə, yumurta, pırasa, göyərti",
         "ru": "400г · ramen bouilion, куриная грудка, шампиньоны , · яичная лапша, яйцо, лук-порей, травы"
       },
-      "img": "images/food_and_cigarettes/062_CHICKEN_AND_MUSHROOM_RAMEN_SOUP.jpeg"
+      "img": "/images/food_and_cigarettes/062_CHICKEN_AND_MUSHROOM_RAMEN_SOUP.jpeg"
     },
     {
       "name": {
@@ -786,7 +786,7 @@
         "az": "250q · tom yum bouilion, krevet, somon təzə, şampinyon, · shimeji göbələyi, pomidor, cilantro",
         "ru": "250г · tom yum bouilion, креветки, лосось свежий, шампиньоны, · грибы шимеджи, помидор, кориандр"
       },
-      "img": "images/food_and_cigarettes/063_TOM_YUM_SOUP.jpeg"
+      "img": "/images/food_and_cigarettes/063_TOM_YUM_SOUP.jpeg"
     }
   ],
   "starters": [
@@ -804,7 +804,7 @@
         "az": "230q · mal əti · mal əti, yaşıl soğan · pendir · ağ pendir, qouda pendir, mozzarella · toyuq · toyuq döşü, yumurta, yaşıl soğan",
         "ru": "230г · говядина · говядина, зеленый лук · сыр · белый сыр, гауда сыр, моцарелла · курица · куриная грудка, яйцо, зеленый лук"
       },
-      "img": "images/food_and_cigarettes/065_EMPANADES.jpeg"
+      "img": "/images/food_and_cigarettes/065_EMPANADES.jpeg"
     },
     {
       "name": {
@@ -820,7 +820,7 @@
         "az": "170q · soğan, cilantro & dipping sous",
         "ru": "170г · лук, кориандр & dipping соус"
       },
-      "img": "images/food_and_cigarettes/066_CHICKEN_GYOZA.jpeg"
+      "img": "/images/food_and_cigarettes/066_CHICKEN_GYOZA.jpeg"
     },
     {
       "name": {
@@ -836,7 +836,7 @@
         "az": "230q · xırtıldayan ördək · ördək budu, xiyar, yerkökü, · pırasa, apricot sous · VEGETABLE · yerkökü, qar noxudu, göbələk, kələm, · şüşə əriştə, passion fruit sous · toyuq · toyuq br",
         "ru": "230г · хрустящий утка · утиное бедро, огурец, морковь, · лук-порей, apricot соус · VEGETABLE · морковь, снежный горошек, гриб, капуста, · стеклянная лапша, passion fruit соус · курица · курица br"
       },
-      "img": "images/food_and_cigarettes/067_SPRING_ROLLS.jpeg"
+      "img": "/images/food_and_cigarettes/067_SPRING_ROLLS.jpeg"
     },
     {
       "name": {
@@ -852,7 +852,7 @@
         "az": "260q · toyuq qanadı, green & red isti bibər, küncüt, · xüsusi şirin sous",
         "ru": "260г · куриные крылышки, green & red чили перец, кунжут, · специальный сладкий соус"
       },
-      "img": "images/food_and_cigarettes/068_SPICY_CHICKEN_WINGS.jpeg"
+      "img": "/images/food_and_cigarettes/068_SPICY_CHICKEN_WINGS.jpeg"
     },
     {
       "name": {
@@ -868,7 +868,7 @@
         "az": "250q · kalamar, nori, togarashi spice, dəniz duzu, göyərti, · vasabi mayonezi",
         "ru": "250г · кальмар, нори, togarashi spice, морская соль, травы, · васаби-майонез"
       },
-      "img": "images/food_and_cigarettes/069_CRISPY_CALAMARY.jpeg"
+      "img": "/images/food_and_cigarettes/069_CRISPY_CALAMARY.jpeg"
     },
     {
       "name": {
@@ -884,7 +884,7 @@
         "az": "220q · krevet, yuzu dipping sous, tempura xəmiri",
         "ru": "220г · креветки, yuzu dipping соус, темпурное тесто"
       },
-      "img": "images/food_and_cigarettes/070_SHRIMPS_TEMPURA.jpeg"
+      "img": "/images/food_and_cigarettes/070_SHRIMPS_TEMPURA.jpeg"
     },
     {
       "name": {
@@ -900,7 +900,7 @@
         "az": "250q · krevet, tempura xəmiri, vasabi mayonezi, ədviyyatlı mayonez, · yaşıl soğan, orange tobico, nori",
         "ru": "250г · креветки, темпурное тесто, васаби-майонез, острый майонез, · зеленый лук, orange tobico, нори"
       },
-      "img": "images/food_and_cigarettes/071_WASABI_SHRIMPS.jpeg"
+      "img": "/images/food_and_cigarettes/071_WASABI_SHRIMPS.jpeg"
     },
     {
       "name": {
@@ -916,7 +916,7 @@
         "az": "350q · krevet, pomidor, kahı, ponzo & manqo sousu, yaşıl soğan, · togarashi powder, tempura xəmiri, nori",
         "ru": "350г · креветки, помидор, салат, ponzo & манговый соус, зеленый лук, · togarashi powder, темпурное тесто, нори"
       },
-      "img": "images/food_and_cigarettes/072_POPCORN_PRAWNS.jpeg"
+      "img": "/images/food_and_cigarettes/072_POPCORN_PRAWNS.jpeg"
     },
     {
       "name": {
@@ -932,7 +932,7 @@
         "az": "1240q · toyuq gyoza, pendir empanades, ördək spring roll, · qarışıq bruschetta, xırtıldayan kalamar, negima toyuq, edamame",
         "ru": "1240г · курица gyoza, сыр empanades, утка spring ролл, · микс bruschetta, хрустящий кальмар, negima курица, эдамаме"
       },
-      "img": "images/food_and_cigarettes/092_APPETIZERS_SET.jpeg"
+      "img": "/images/food_and_cigarettes/092_APPETIZERS_SET.jpeg"
     }
   ],
   "mains": [
@@ -950,7 +950,7 @@
         "az": "450q · mal əti bonfile, soğan, pomidor, kahı, çedar pendir, · xüsusi burger sousu",
         "ru": "450г · стриплойн, лук, помидор, салат, чеддер сыр, · специальный соус для бургера"
       },
-      "img": "images/food_and_cigarettes/074_TENDER_BEEF_BURGER.jpeg"
+      "img": "/images/food_and_cigarettes/074_TENDER_BEEF_BURGER.jpeg"
     },
     {
       "name": {
@@ -966,7 +966,7 @@
         "az": "200q · braziliya mal əti, yaşıl bibər, pomidor, · evdə hazırlanmış kartof, dəniz duzu",
         "ru": "200г · бразильская говядина, зеленый чили, помидор, · домашний картофель, морская соль"
       },
-      "img": "images/food_and_cigarettes/076_BRAZILIAN_BEEF_FILLET.jpeg"
+      "img": "/images/food_and_cigarettes/076_BRAZILIAN_BEEF_FILLET.jpeg"
     },
     {
       "name": {
@@ -982,7 +982,7 @@
         "az": "200q · quzu, pomidor, yaşıl bibər, teriyaki sousu, · evdə hazırlanmış kartof",
         "ru": "200г · баранина, помидор, зеленый чили, соус терияки, · домашний картофель"
       },
-      "img": "images/food_and_cigarettes/077_LAMB_CHOPS.jpeg"
+      "img": "/images/food_and_cigarettes/077_LAMB_CHOPS.jpeg"
     },
     {
       "name": {
@@ -998,7 +998,7 @@
         "az": "200q · mal əti bonfile, pomidor, yaşıl bibər, · evdə hazırlanmış kartof",
         "ru": "200г · стриплойн, помидор, зеленый чили, · домашний картофель"
       },
-      "img": "images/food_and_cigarettes/078_BLACK_ANGUS_STRIPLOIN.jpeg"
+      "img": "/images/food_and_cigarettes/078_BLACK_ANGUS_STRIPLOIN.jpeg"
     },
     {
       "name": {
@@ -1014,7 +1014,7 @@
         "az": "200q · rib eye, pomidor, yaşıl bibər, evdə hazırlanmış kartof",
         "ru": "200г · rib eye, помидор, зеленый чили, домашний картофель"
       },
-      "img": "images/food_and_cigarettes/079_BLACK_ANGUS_RIB_EYE.jpeg"
+      "img": "/images/food_and_cigarettes/079_BLACK_ANGUS_RIB_EYE.jpeg"
     },
     {
       "name": {
@@ -1030,7 +1030,7 @@
         "az": "850q · toyuq budu, quzu pirzolası, mal əti fileto, kotletlər, pomidor, · yaşıl bibər, bearnaise  sous, anticuchos sousu",
         "ru": "850г · куриное бедро, бараньи котлетки, вырезка, фрикадельки, помидор, · зеленый чили, bearnaise  соус, соус антикучос"
       },
-      "img": "images/food_and_cigarettes/080_MIX_JOSPER_3_pax.jpeg"
+      "img": "/images/food_and_cigarettes/080_MIX_JOSPER_3_pax.jpeg"
     },
     {
       "name": {
@@ -1046,7 +1046,7 @@
         "az": "180q · toyuq budu, istiot bolgarian, pırasa, lime, yakitori sous",
         "ru": "180г · куриное бедро, перец bolgarian, лук-порей, lime, yakitori соус"
       },
-      "img": "images/food_and_cigarettes/082_NEGIMA_CHICKEN.jpeg"
+      "img": "/images/food_and_cigarettes/082_NEGIMA_CHICKEN.jpeg"
     },
     {
       "name": {
@@ -1062,7 +1062,7 @@
         "az": "230q · toyuq döşü, qırmızı soğan, çin kələmi, · bolqar bibəri, pırasa, xüsusi sous",
         "ru": "230г · куриная грудка, красный лук, пекинская капуста, · болгарский перец, лук-порей, специальный соус"
       },
-      "img": "images/food_and_cigarettes/083_KUNG_PAO.jpeg"
+      "img": "/images/food_and_cigarettes/083_KUNG_PAO.jpeg"
     },
     {
       "name": {
@@ -1078,7 +1078,7 @@
         "az": "250q · toyuq budu, şampinyon, white soğan, çin kələmi, · yaşıl bibər, pomidor, yuzu miso sous",
         "ru": "250г · куриное бедро, шампиньоны, white лук, пекинская капуста, · зеленый чили, помидор, yuzu мисо соус"
       },
-      "img": "images/food_and_cigarettes/084_MISO_MARINATED_GRILLED_CHICKEN_LEG.jpeg"
+      "img": "/images/food_and_cigarettes/084_MISO_MARINATED_GRILLED_CHICKEN_LEG.jpeg"
     }
   ],
   "wok": [
@@ -1096,7 +1096,7 @@
         "az": "435q · VEGETABLES · əriştə, qırmızı soğan, yerkökü, şampinyon, qar noxudu, · xüsusi əriştə sous · mal əti · toyuq · krevet · ördək",
         "ru": "435г · VEGETABLES · яичная лапша, красный лук, морковь, шампиньоны, снежный горошек, · специальный лапша соус · говядина · курица · креветки · утка"
       },
-      "img": "images/food_and_cigarettes/085_FRIED_NOODLES.jpeg"
+      "img": "/images/food_and_cigarettes/085_FRIED_NOODLES.jpeg"
     },
     {
       "name": {
@@ -1112,7 +1112,7 @@
         "az": "450q · VEGETABLES · düyü, bolqar bibəri, yerkökü, qar noxudu, qızardılmış düyü sous · krevet · toyuq",
         "ru": "450г · VEGETABLES · рис, болгарский перец, морковь, снежный горошек, жареный рис соус · креветки · курица"
       },
-      "img": "images/food_and_cigarettes/086_FRIED_RICE.jpeg"
+      "img": "/images/food_and_cigarettes/086_FRIED_RICE.jpeg"
     },
     {
       "name": {
@@ -1128,7 +1128,7 @@
         "az": "500q · kari sousu, toyuq budu, badımcan, balqabaq, bolqar bibəri",
         "ru": "500г · соус карри, куриное бедро, баклажан, цукини, болгарский перец"
       },
-      "img": "images/food_and_cigarettes/087_GREEN_CHICKEN_CURRY.jpeg"
+      "img": "/images/food_and_cigarettes/087_GREEN_CHICKEN_CURRY.jpeg"
     },
     {
       "name": {
@@ -1144,7 +1144,7 @@
         "az": "300q · düyü, toyuq qanadı, bolqar bibəri, yerkökü, · yumurta, xüsusi düyü sous",
         "ru": "300г · рис, куриные крылышки, болгарский перец, морковь, · яйцо, специальный рис соус"
       },
-      "img": "images/food_and_cigarettes/088_ORIENTAL_CHICKEN.jpeg"
+      "img": "/images/food_and_cigarettes/088_ORIENTAL_CHICKEN.jpeg"
     },
     {
       "name": {
@@ -1160,7 +1160,7 @@
         "az": "400q · kari sousu, krevet, edamame soya beans, bolqar bibəri",
         "ru": "400г · соус карри, креветки, эдамаме soya beans, болгарский перец"
       },
-      "img": "images/food_and_cigarettes/089_RED_CURRY_WITH_PRAWNS.jpeg"
+      "img": "/images/food_and_cigarettes/089_RED_CURRY_WITH_PRAWNS.jpeg"
     },
     {
       "name": {
@@ -1176,7 +1176,7 @@
         "az": "200q · somon təzə, badımcan, cherry pomidor, · bolqar bibəri, yuzu miso & teriyaki sousu",
         "ru": "200г · лосось свежий, баклажан, черри, · болгарский перец, yuzu мисо & соус терияки"
       },
-      "img": "images/food_and_cigarettes/090_GRILLED_TERIYAKI_SALMON.jpeg"
+      "img": "/images/food_and_cigarettes/090_GRILLED_TERIYAKI_SALMON.jpeg"
     },
     {
       "name": {
@@ -1192,7 +1192,7 @@
         "az": "250q · şirin & turş sous",
         "ru": "250г · сладкий & кислый соус"
       },
-      "img": "images/food_and_cigarettes/091_CRISPY_SEA_BASS.jpeg"
+      "img": "/images/food_and_cigarettes/091_CRISPY_SEA_BASS.jpeg"
     }
   ],
   "desserts": [
@@ -1210,7 +1210,7 @@
         "az": "160q · dark şokolad, kərə yağı, vanil ice cream",
         "ru": "160г · dark шоколад, сливочное масло, ваниль ice cream"
       },
-      "img": "images/food_and_cigarettes/102_CHOCOLATE_FONDANT.jpeg"
+      "img": "/images/food_and_cigarettes/102_CHOCOLATE_FONDANT.jpeg"
     },
     {
       "name": {
@@ -1226,7 +1226,7 @@
         "az": "150q · pendir kreması, şəkər white, peçenye, orange juice",
         "ru": "150г · творожный сыр, сахар white, печенье, orange juice"
       },
-      "img": "images/food_and_cigarettes/104_CHEESECAKE_WITH_BERRY_SAUCE.jpeg"
+      "img": "/images/food_and_cigarettes/104_CHEESECAKE_WITH_BERRY_SAUCE.jpeg"
     },
     {
       "name": {
@@ -1242,7 +1242,7 @@
         "az": "1450q · seasonal fruits",
         "ru": "1450г · seasonal fruits"
       },
-      "img": "images/food_and_cigarettes/105_SEASONAL_FRUIT_PLATE.jpeg"
+      "img": "/images/food_and_cigarettes/105_SEASONAL_FRUIT_PLATE.jpeg"
     },
     {
       "name": {
@@ -1258,7 +1258,7 @@
         "az": "370q · black raisin, walnuts, badam, fındıq",
         "ru": "370г · black raisin, walnuts, миндаль, фундук"
       },
-      "img": "images/food_and_cigarettes/106_NUTS.jpeg"
+      "img": "/images/food_and_cigarettes/106_NUTS.jpeg"
     },
     {
       "name": {
@@ -1274,7 +1274,7 @@
         "az": "110q · qızardılmış salty pistachio",
         "ru": "110г · жареный salty pistachio"
       },
-      "img": "images/food_and_cigarettes/107_PISTACHIO.jpeg"
+      "img": "/images/food_and_cigarettes/107_PISTACHIO.jpeg"
     },
     {
       "name": {
@@ -1290,7 +1290,7 @@
         "az": "210q · vanil, şokolad, çiyələk ice cream",
         "ru": "210г · ваниль, шоколад, клубника ice cream"
       },
-      "img": "images/food_and_cigarettes/108_ASSORTED_ICE_CREAM.jpeg"
+      "img": "/images/food_and_cigarettes/108_ASSORTED_ICE_CREAM.jpeg"
     },
     {
       "name": {
@@ -1306,7 +1306,7 @@
         "az": "245q · dry pineapple, dry apple, dry apricot, black raisin",
         "ru": "245г · dry pineapple, dry apple, dry apricot, black raisin"
       },
-      "img": "images/food_and_cigarettes/109_ASSORTED_DRY_FRUITS.jpeg"
+      "img": "/images/food_and_cigarettes/109_ASSORTED_DRY_FRUITS.jpeg"
     }
   ],
   "sides": [
@@ -1324,7 +1324,7 @@
         "az": "250q · mini kartof, göyərti",
         "ru": "250г · mini картофель, травы"
       },
-      "img": "images/food_and_cigarettes/094_HOMEMADE_POTATO.jpeg"
+      "img": "/images/food_and_cigarettes/094_HOMEMADE_POTATO.jpeg"
     },
     {
       "name": {
@@ -1340,7 +1340,7 @@
         "az": "250q · kartof, ketchup, mayonnaise",
         "ru": "250г · картофель, ketchup, mayonnaise"
       },
-      "img": "images/food_and_cigarettes/095_FRENCH_FRIES.jpeg"
+      "img": "/images/food_and_cigarettes/095_FRENCH_FRIES.jpeg"
     },
     {
       "name": {
@@ -1356,7 +1356,7 @@
         "az": "120q · buxarda düyü, sushi sirkəsi",
         "ru": "120г · рис на пару, суши-уксус"
       },
-      "img": "images/food_and_cigarettes/096_STEAMED_RICE.jpeg"
+      "img": "/images/food_and_cigarettes/096_STEAMED_RICE.jpeg"
     },
     {
       "name": {
@@ -1372,7 +1372,7 @@
         "az": "120q · badımcan, miso yuzu sous",
         "ru": "120г · баклажан, мисо yuzu соус"
       },
-      "img": "images/food_and_cigarettes/097_MISO_EGGPLANT.jpeg"
+      "img": "/images/food_and_cigarettes/097_MISO_EGGPLANT.jpeg"
     },
     {
       "name": {
@@ -1388,7 +1388,7 @@
         "az": "200q",
         "ru": "200г"
       },
-      "img": "images/food_and_cigarettes/098_TRUFFLE_MUSHED_POTATO.jpeg"
+      "img": "/images/food_and_cigarettes/098_TRUFFLE_MUSHED_POTATO.jpeg"
     },
     {
       "name": {
@@ -1404,7 +1404,7 @@
         "az": "400q · bolqar bibəri, şampinyon, pomidor, · balqabaq, badımcan, yaşıl bibər",
         "ru": "400г · болгарский перец, шампиньоны, помидор, · цукини, баклажан, зеленый чили"
       },
-      "img": "images/food_and_cigarettes/099_GRILLED_VEGETABLES.jpeg"
+      "img": "/images/food_and_cigarettes/099_GRILLED_VEGETABLES.jpeg"
     }
   ]
 }
