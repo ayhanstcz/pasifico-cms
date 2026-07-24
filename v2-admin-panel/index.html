@@ -66,6 +66,9 @@ input,textarea,select{width:100%;padding:9px 11px;background:var(--s2);border:1p
 .ai-panel{width:380px;min-width:380px;background:var(--s1);border-left:1px solid var(--b);display:none;flex-direction:column;height:100%}.ai-panel.open{display:flex}.ai-header{padding:12px 14px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between}.ai-header h4{font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:6px}.ai-header h4 .dot{width:6px;height:6px;border-radius:50%;background:#4caf50}.ai-close{background:none;border:0;color:var(--m);font-size:1.1rem;cursor:pointer;padding:2px 6px;border-radius:4px}.ai-close:hover{background:var(--s2);color:var(--t)}.ai-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}.ai-msg{max-width:88%;padding:10px 13px;border-radius:10px;font-size:.8rem;line-height:1.5;white-space:pre-wrap;word-break:break-word}.ai-msg.bot{background:var(--s2);border:1px solid var(--b);align-self:flex-start;border-bottom-left-radius:3px}.ai-msg.user{background:rgba(200,146,45,.12);border:1px solid rgba(200,146,45,.18);align-self:flex-end;border-bottom-right-radius:3px;color:var(--t)}.ai-msg .think{font-size:.72rem;color:var(--l);font-style:italic;display:block;margin-bottom:6px;opacity:.7;border-left:2px solid var(--g);padding-left:8px}.ai-msg .err{color:var(--r);font-size:.75rem}.ai-typing{display:flex;gap:4px;padding:6px 0;align-items:center;color:var(--m)}.ai-typing span{width:5px;height:5px;border-radius:50%;background:var(--m);animation:aiDots 1s infinite}.ai-typing span:nth-child(2){animation-delay:.15s}.ai-typing span:nth-child(3){animation-delay:.3s}@keyframes aiDots{0%,80%,100%{opacity:.3}40%{opacity:1}}.ai-foot{padding:10px 12px;border-top:1px solid var(--b);display:flex;gap:8px;align-items:end}.ai-foot textarea{flex:1;padding:9px 11px;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--t);font-size:.8rem;resize:none;min-height:36px;max-height:96px;outline:none;transition:border-color var(--transition)}.ai-foot textarea:focus{border-color:var(--g)}.ai-foot .ai-send{padding:8px 14px;background:var(--g);color:#000;border:0;border-radius:7px;cursor:pointer;font-size:.85rem;transition:background var(--transition);align-self:end}.ai-foot .ai-send:hover{background:var(--gh)}.ai-tools{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px;border-bottom:1px solid var(--b)}.ai-tools button{font-size:.65rem;padding:4px 8px;border:1px solid var(--b);border-radius:4px;background:transparent;color:var(--m);cursor:pointer;transition:all var(--transition)}.ai-tools button:hover{color:var(--t);border-color:var(--g)}
 .ai-image-preview{max-width:200px;max-height:120px;border-radius:6px;object-fit:cover;margin-top:6px;border:1px solid var(--b)}
 
+/* ─── CHATBOT KNOWLEDGE ─── */
+.knowledge-list{display:flex;flex-direction:column;gap:10px}.knowledge-card{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:14px;transition:border-color var(--transition)}.knowledge-card:hover{border-color:var(--b2)}.knowledge-card label{font-size:.66rem;color:var(--m);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em;font-weight:500;display:block}.knowledge-card input,.knowledge-card textarea{width:100%;padding:9px 11px;background:var(--s1);border:1px solid var(--b);border-radius:6px;color:var(--t);font-size:.83rem;outline:none;transition:border-color var(--transition);margin-bottom:10px}.knowledge-card input:focus,.knowledge-card textarea:focus{border-color:var(--g)}.knowledge-card textarea{resize:vertical;min-height:80px;font-family:var(--font)}.knowledge-card .card-actions{display:flex;justify-content:flex-end;gap:6px}.knowledge-card .card-id{font-size:.6rem;color:var(--m);font-family:var(--mono);margin-bottom:6px}
+
 /* ─── RESPONSIVE ─── */
 @media(max-width:960px){.sidebar{width:56px;min-width:56px}.sidebar-brand{padding:12px 10px}.sidebar-brand h2{font-size:0}.sidebar-brand h2:after{content:"P";font-size:1.1rem;color:var(--g)}.sidebar-brand small{display:none}.sidebar-nav .tab-btn{padding:10px 8px;justify-content:center}.sidebar-nav .tab-btn span{display:none}.sidebar-nav .tab-btn .ico{margin:0}.ai-panel{position:fixed;right:0;top:0;z-index:150;width:100%;max-width:400px;box-shadow:-8px 0 32px rgba(0,0,0,.6)}.lang-tabs{padding:4px 8px;gap:2px}.lang-tab{padding:4px 8px;font-size:.65rem}}
 @media(max-width:640px){.row,.row-3,.row-4,.i18n-inps{grid-template-columns:1fr}.main-content{padding:12px}.stats{grid-template-columns:1fr 1fr}.modal-box{padding:16px}.ai-panel{max-width:100%}}
@@ -98,6 +101,7 @@ input,textarea,select{width:100%;padding:9px 11px;background:var(--s2);border:1p
     <button class="tab-btn" data-tab="texts"><span class="ico">📝</span> <span>Translations</span></button>
     <button class="tab-btn" data-tab="forms"><span class="ico">📋</span> <span>Form Options</span></button>
     <button class="tab-btn" data-tab="site"><span class="ico">⚙️</span> <span>Site</span></button>
+    <button class="tab-btn" data-tab="chatbot-knowledge"><span class="ico">🧠</span> <span>Chatbot Knowledge</span></button>
     <div class="sidebar-ai">
       <button class="tab-btn" data-tab="ai" id="aiTabBtn"><span class="ico">🤖</span> <span>AI Assistant</span><span class="indicator off" id="aiIndicator"></span></button>
     </div>
@@ -224,6 +228,7 @@ const TABS = [
   {id:'texts',label:'📝 Translations'},
   {id:'forms',label:'📋 Form Options'},
   {id:'site',label:'⚙️ Site'},
+  {id:'chatbot-knowledge',label:'🧠 Chatbot Knowledge'},
   {id:'ai',label:'🤖 AI Assistant'},
 ];
 
@@ -672,6 +677,115 @@ window.saveSite = async function(){
   toast('Site config saved!');
 };
 
+// ─── CHATBOT KNOWLEDGE ───
+renderers['chatbot-knowledge'] = async function(){
+  const data = await loadData('chatbot-knowledge');
+  const items = Array.isArray(data) ? data : [];
+
+  function renderKnowledge(){
+    $('content').innerHTML = `
+      <div class="card">
+        <h4>🧠 Knowledge Base <span class="count">${items.length} cards</span></h4>
+        <div class="knowledge-list" id="knowledgeList">
+          ${items.length ? items.map((item, i) => `
+            <div class="knowledge-card" data-idx="${i}">
+              <div class="card-id">${esc(item.id||'')}</div>
+              <label>Title</label>
+              <input class="kb-title" value="${esc(item.title||'')}" placeholder="Enter title...">
+              <label>Content</label>
+              <textarea class="kb-content" rows="4" placeholder="Enter knowledge content...">${esc(item.content||'')}</textarea>
+              <div class="card-actions">
+                <button class="btn btn-danger btn-sm" onclick="deleteKnowledgeCard(${i})">🗑️ Delete</button>
+              </div>
+            </div>
+          `).join('') : '<div class="empty"><span class="big">🧠</span>No knowledge cards yet. Click "+ Add Knowledge" to get started.</div>'}
+        </div>
+        <div class="flex gap-8 mt-12">
+          <button class="btn btn-primary btn-sm" onclick="addKnowledgeCard()">+ Add Knowledge</button>
+          <button class="btn btn-success btn-sm" onclick="saveKnowledge()">💾 Save</button>
+        </div>
+      </div>`;
+  }
+
+  window._knowledgeItems = items;
+  renderKnowledge();
+};
+
+window.addKnowledgeCard = function(){
+  const items = window._knowledgeItems || [];
+  const id = 'kb-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+  items.push({id, title: '', content: ''});
+  window._knowledgeItems = items;
+
+  // Re-render the knowledge list by appending the new card
+  const list = $('knowledgeList');
+  const idx = items.length - 1;
+  const cardHtml = `
+    <div class="knowledge-card" data-idx="${idx}">
+      <div class="card-id">${esc(id)}</div>
+      <label>Title</label>
+      <input class="kb-title" value="" placeholder="Enter title...">
+      <label>Content</label>
+      <textarea class="kb-content" rows="4" placeholder="Enter knowledge content..."></textarea>
+      <div class="card-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteKnowledgeCard(${idx})">🗑️ Delete</button>
+      </div>
+    </div>`;
+
+  if (list) {
+    // Replace empty state if needed
+    const emptyEl = list.querySelector('.empty');
+    if (emptyEl) {
+      list.innerHTML = cardHtml;
+    } else {
+      list.insertAdjacentHTML('beforeend', cardHtml);
+    }
+    // Update count
+    const countEl = document.querySelector('.card h4 .count');
+    if (countEl) countEl.textContent = `${items.length} cards`;
+  } else {
+    // Full re-render if list element not found
+    renderers['chatbot-knowledge']();
+  }
+  toast('Knowledge card added');
+};
+
+window.deleteKnowledgeCard = function(idx){
+  const items = window._knowledgeItems || [];
+  if (idx < 0 || idx >= items.length) return;
+  if (!confirm('Delete this knowledge card?')) return;
+  items.splice(idx, 1);
+  window._knowledgeItems = items;
+  renderers['chatbot-knowledge']();
+  toast('Knowledge card deleted');
+};
+
+window.saveKnowledge = async function(){
+  const items = window._knowledgeItems || [];
+
+  // Read values from the DOM
+  const cards = document.querySelectorAll('.knowledge-card');
+  cards.forEach((card, i) => {
+    const titleInput = card.querySelector('.kb-title');
+    const contentTextarea = card.querySelector('.kb-content');
+    if (i < items.length) {
+      items[i].title = titleInput ? titleInput.value : '';
+      items[i].content = contentTextarea ? contentTextarea.value : '';
+    }
+  });
+
+  // Remove empty IDs before saving (let server assign if needed)
+  const clean = items.filter(item => item.title || item.content);
+
+  try {
+    await saveData('chatbot-knowledge', clean);
+    window._knowledgeItems = clean;
+    toast('Knowledge base saved!');
+  } catch(e) {
+    toast('Save failed: ' + e.message, 'err');
+  }
+};
+
 // ════════════════════════════════════════════
 // AI ASSISTANT (pasifico-admin)
 // ════════════════════════════════════════════
@@ -712,7 +826,6 @@ async function sendAi(){
     });
     const data=await res.json();
     const reply=data.choices?.[0]?.message?.content||'No response';
-    // Replace thinking placeholder
     msgDiv.innerHTML=formatAiReply(reply);
     aiMessages.push({role:'assistant',content:reply});
   }catch(e){
@@ -731,21 +844,14 @@ function addAiMsg(text,role,typing=false){
 }
 
 function formatAiReply(text){
-  // Extract thinking (between <｜end▁of▁thinking｜> or <｜end▁of▁thinking｜> ... <｜end▁of▁thinking｜> or inside  response)
   let think='';
   let reply=text;
 
-  // Look for  blocks
   const thinkMatch=text.match(/<think>([\s\S]*?)<\/think>/);
   if(thinkMatch){
     think=thinkMatch[1].trim();
     reply=text.replace(/<think>[\s\S]*?<\/think>/,'').trim();
   }
-
-  // Also  response
-  // Look for thinking block pattern
-  const thinkMatch2=text.match(/^(.+?)(?=\n\n|\n(?=[A-Z])|$)/);
-  // Simple: if text has "..." that looks like thinking, clean it
 
   let html='';
   if(think){
@@ -786,7 +892,7 @@ Use these tools when needed:
 - To search the web, the user can press the "Web search" button
 - Image uploads use the built-in upload button
 
-The admin panel has these tabs: Dashboard, Menu, Featured, Events, Translations, Form Options, Site, and this AI Assistant.
+The admin panel has these tabs: Dashboard, Menu, Featured, Events, Translations, Form Options, Site, Chatbot Knowledge, and this AI Assistant.
 
 The site uses 4 languages: English (en), Turkish (tr), Azerbaijani (az), Russian (ru).
 All content is stored as JSON files and managed through the admin panel.`}
@@ -842,7 +948,6 @@ window.handleAiImage = function(input){
 };
 
 window.recordAiAudio = function(){
-  // Voice input via Web Speech API
   if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){
     toast('Voice input not supported in this browser','err');
     return;
@@ -874,7 +979,6 @@ function init(){
       tab.classList.add('active');
       editorLang=tab.dataset.lang;
       $('langLabel').textContent=LL[editorLang];
-      // Re-render current tab
       const active=document.querySelector('.tab-btn.active');
       if(active&&active.dataset.tab!=='ai')switchTab(active.dataset.tab);
     });
@@ -886,19 +990,14 @@ function init(){
     });
   });
 
-  // Keyboard shortcuts
   document.addEventListener('keydown',e=>{
-    // Ctrl+Enter to send AI when focused
     if(e.ctrlKey&&e.key==='Enter'&&document.activeElement===$('aiInput')){e.preventDefault();sendAi()}
-    // Escape to close modal/AI
     if(e.key==='Escape'){closeModal();if(aiOpen)toggleAiPanel(false)}
   });
 
-  // Auto-init
   switchTab('dash');
 }
 
-// Boot: check auth
 (function(){
   fetch('/api/check-auth').then(r=>r.json()).then(d=>{
     if(d.authenticated){

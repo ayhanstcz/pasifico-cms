@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Pasifico Lounge & Dining — CMS Admin Panel",
   "scripts": {
-    "start": "node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "start:v2": "NODE_ENV=production node v2-server.js",
+    "start:dev": "node server.js"
   },
   "keywords": [],
   "author": "",

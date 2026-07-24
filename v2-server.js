@@ -7,7 +7,11 @@ const crypto = require('crypto');
 const compression = require('compression');
 
 const app = express();
-const PORT = 8765;
+const PORT = 8766;
+
+// V2: serve from v2 directories instead of root
+const V2_SITE_DIR = path.join(__dirname, 'v2-site');
+const V2_ADMIN_DIR = path.join(__dirname, 'v2-admin-panel');
 const CONTENT_DIR = path.join(__dirname, 'content');
 const IMAGES_DIR = path.join(__dirname, 'images');
 
@@ -15,12 +19,7 @@ const IMAGES_DIR = path.join(__dirname, 'images');
 app.use(compression({ level: 6, threshold: 256 }));
 
 // ETag & cache config: more aggressive for static assets
-app.set('etag', 'strong'); // strong ETags for better caching
-
-// Cache headers for static assets
-const CACHE_YEAR = 'public, max-age=31536000, immutable';
-const CACHE_SHORT = 'public, max-age=300';
-const CACHE_NO = 'no-cache';
+app.set('etag', 'strong');
 
 // Static images: cache 1 year with immutable and stale-while-revalidate
 const IMG_CACHE = { maxAge: '1y', immutable: true, etag: true, lastModified: true, setHeaders: (res) => {
@@ -30,7 +29,7 @@ app.use('/images', express.static(IMAGES_DIR, IMG_CACHE));
 app.use('/img', express.static(IMAGES_DIR, IMG_CACHE));
 
 // Admin panel assets: cache 1 hour
-app.use('/admin-assets', express.static(path.join(__dirname, 'admin-panel'), { maxAge: '1h', etag: true, lastModified: true }));
+app.use('/admin-assets', express.static(V2_ADMIN_DIR, { maxAge: '1h' }));
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
@@ -43,8 +42,8 @@ app.use(session({
 
 app.use(express.json({ limit: '50mb' }));
 
-// Serve admin panel static files (with cache) — already done above
-// Admin-assets is served at line 29, this is a duplicate
+// Serve admin panel static files (with cache)
+app.use('/admin-assets', express.static(V2_ADMIN_DIR, { maxAge: '1h' }));
 
 // Multer for uploads
 const storage = multer.diskStorage({
@@ -60,7 +59,7 @@ const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 function requireAuth(req, res, next) {
   if (req.session.authenticated) return next();
   if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'Unauthorized' });
-  res.redirect('/admin-panel/login.html');
+  res.redirect('/admin-assets/login.html');
 }
 
 // ===================== AUTH =====================
@@ -147,7 +146,7 @@ function walkImages(dir, prefix = '') {
     const full = path.join(dir, e.name);
     const rel = prefix ? prefix + '/' + e.name : e.name;
     if (e.isDirectory()) files.push(...walkImages(full, rel));
-    else if (/\.(jpg|jpeg|png|gif|webp|svg|avif|heic)$/i.test(e.name)) files.push(rel);
+    else if (/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i.test(e.name)) files.push(rel);
   }
   return files;
 }
@@ -164,6 +163,12 @@ app.post('/api/upload', requireAuth, upload.single('image'), (req, res) => {
 // ===================== ADMIN PANEL REDIRECT =====================
 
 app.get('/admin', (req, res) => {
+  if (!req.session.authenticated) return res.redirect('/admin-assets/?login=1');
+  res.sendFile(path.join(V2_ADMIN_DIR, 'index.html'));
+});
+
+// V1 admin redirect (kept for compatibility)
+app.get('/admin-v1', (req, res) => {
   if (!req.session.authenticated) return res.redirect('/admin-panel/login.html');
   res.sendFile(path.join(__dirname, 'admin-panel', 'index.html'));
 });
@@ -224,18 +229,28 @@ app.get('/api/ai/models', requireAuth, async (req, res) => {
   }
 });
 
-// ===================== PUBLIC SITE =====================
+// ===================== V2: ADMIN PANEL REDIRECT =====================
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.get('/admin', (req, res) => {
+  if (!req.session.authenticated) return res.redirect('/admin-assets/?login=1');
+  res.sendFile(path.join(V2_ADMIN_DIR, 'index.html'));
 });
 
+// ===================== V2: PUBLIC SITE =====================
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(V2_SITE_DIR, 'index.html'));
+});
+
+// Serve static files from v2-site root (for assets)
+app.use(express.static(V2_SITE_DIR));
+// But also serve from root (for images/ and content/ shared)
 app.use(express.static(__dirname));
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`
 ╔══════════════════════════════════════════╗
-║     Pasifico Lounge & Dining — CMS      ║
+║   Pasifico V2 — Premium Site + Chatbot  ║
 ║──────────────────────────────────────────║
 ║  Site:   http://localhost:${PORT}          ║
 ║  Admin:  http://localhost:${PORT}/admin    ║
